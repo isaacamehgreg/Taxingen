@@ -1,0 +1,26 @@
+{
+  "type": "mysql",
+  "host": "us-cdbr-east-04.cleardb.com",
+  "port": 3306,
+  "username": "bcbab4d833f9e4",
+  "password": "30ef9798",
+  "database": "heroku_7e6d584f3e7d51a",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+     "src/entity/**/*.ts",
+     "src/**/*.ts"
+  ],
+  "migrations": [
+     "migration/**/*.ts"
+  ],
+  "migrationsTableName": "paperdaz_migration_table",
+  "subscribers": [
+     "src/subscriber/**/*.ts"
+  ],
+  "cli": {
+     "entitiesDir": "src/entity",
+     "migrationsDir": "migration",
+     "subscribersDir": "src/subscriber"
+  }
+}
