@@ -14,7 +14,7 @@
   "migrations": [
      "migration/**/*.ts"
   ],
-  "migrationsTableName": "paperdaz_migration_table",
+  "migrationsTableName": "taxingen_migration_table",
   "subscribers": [
      "src/subscriber/**/*.ts"
   ],
