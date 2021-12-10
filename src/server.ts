@@ -2,7 +2,7 @@ import * as http from 'http';
 import App from './app';
 
 //Change port to 8080 when deploying to aws
-const port = normalizePort(process.env.PORT || 3000);
+const port = normalizePort(process.env.PORT || 5000);
 App.set('port', port);
 
 const server = http.createServer(App);
