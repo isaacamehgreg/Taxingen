@@ -29,6 +29,6 @@ export const loginUser = async (
 	return {status:200, message:'Password entered is incorrect',token}
 
    }catch (error){
-	return new ForbiddenException(error);
+	throw error;
    }
 };
