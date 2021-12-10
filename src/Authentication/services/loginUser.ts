@@ -3,6 +3,7 @@ import * as bcryptjs from 'bcryptjs';
 import generateToken from '../../utils/generate-token';
 import { ForbiddenException } from '../../utils/exceptions';
 
+
 export const loginUser = async (
 	email: string,
 	password: string
