@@ -3,22 +3,15 @@ import httpStatus from 'http-status';
 import { SuccessResponse } from '../../utils/success-response';
 import { loginUser } from '../services/loginUser';
 import { registerUser } from '../services/registerUser';
-import { registerFacebookUser} from '../services/registerFacebookUser';
-import { loginSocialUser } from '../services/loginSocialUser';
-import { registerGoogleUser } from '../services/registerGoogleUser copy';
+
 import jwt from 'jsonwebtoken';
 import { User } from '../../User/user.entity';
 
 const Register = async (req: Request, res: Response) => {
-	const { first_name, last_name, email,  password } = req.body;
+	const { name, title, email,  phone } = req.body;
 
 	try {
-		const user = await registerUser(
-			first_name,
-			last_name,
-			email,
-			password
-		);
+		const user = await registerUser(name, title, email, phone);
 		return res
 			.status(httpStatus.OK)
 			.json(new SuccessResponse('Registration successful a verification mail has been sent to your email', user));
@@ -77,87 +70,6 @@ const Login = async (req: Request, res: Response) => {
 
 
 
-const Google = async (req: Request, res: Response) => {
-	const { social_id, first_name, last_name, email, profile_picture  } = req.body;
-
-	try {
-		const checkToGetToken = await loginSocialUser(social_id, email);
-		if(checkToGetToken){
-			return res
-			.status(httpStatus.OK)
-			.json(new SuccessResponse('Registration successful', checkToGetToken));
-		}else{
-
-		const user = await registerGoogleUser(
-			social_id,
-			first_name,
-			last_name,
-			email,
-			profile_picture
-		);
-		return res
-			.status(httpStatus.OK)
-			.json(new SuccessResponse('Registration successful', user));
-
-		}	
-	} catch (error) {
-		throw error;
-	}
-};
-
-const Facebook = async (req: Request, res: Response) => {
-	const { social_id, first_name, last_name, profile_picture  } = req.body;
-
-	try {
-		const checkToGetToken = await loginSocialUser(social_id);
-		if(checkToGetToken){
-			return res
-			.status(httpStatus.OK)
-			.json(new SuccessResponse('Registration successful', checkToGetToken));
-		}else{
-		const user = await registerFacebookUser(
-			social_id,
-			first_name,
-			last_name,
-		
-			profile_picture
-		);
-		return res
-			.status(httpStatus.OK)
-			.json(new SuccessResponse('Registration successful', user));
-
-		}	
-	} catch (error) {
-		throw error;
-	}
-};
-
-const Twitter = async (req: Request, res: Response) => {
-	const { social_id, first_name, last_name, profile_picture  } = req.body;
-
-	try {
-		const checkToGetToken = await loginSocialUser(social_id);
-		if(checkToGetToken){
-			return res
-			.status(httpStatus.OK)
-			.json(new SuccessResponse('Registration successful', checkToGetToken));
-		}else{
-		const user = await registerFacebookUser(
-			social_id,
-			first_name,
-			last_name,
-		
-			profile_picture
-		);
-		return res
-			.status(httpStatus.OK)
-			.json(new SuccessResponse('Registration successful', user));
-
-		}	
-	} catch (error) {
-		throw error;
-	}
-};
 
 
 
@@ -166,8 +78,5 @@ const Twitter = async (req: Request, res: Response) => {
 export default {
 	Login,
 	Register,
-	Google,
-	Facebook,
-	Twitter,
 	verifyEmail,
 };

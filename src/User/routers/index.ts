@@ -18,20 +18,20 @@ router.get('/', checkIfAuth, UserController.getUser);
 /**
  * Update User
  */
-router.patch(
-	'/update',
-	[checkIfAuth, validateUpdateFields],
-	UserController.updateUser
-);
+// router.patch(
+// 	'/update',
+// 	[checkIfAuth, validateUpdateFields],
+// 	UserController.updateUser
+// );
 
 /**
  * Update user password
  */
-router.patch(
-	'/update/password',
-	[checkIfAuth, validateUpdatePasswordFields],
-	UserController.updateUserPassword
-);
+// router.patch(
+// 	'/update/password',
+// 	[checkIfAuth, validateUpdatePasswordFields],
+// 	UserController.updateUserPassword
+// );
 
 
 

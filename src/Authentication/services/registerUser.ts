@@ -4,22 +4,27 @@ import { getManager, getRepository } from 'typeorm';
 import { User } from '../../User/user.entity';
 import { hashPassword } from '../../utils/hash-password';
 import * as jwt from 'jsonwebtoken'
+import generator from "generate-password"
+import { generateCode } from '../../utils/generate-code';
 
 
 export const registerUser = async (
-	first_name: string,
-	last_name: string,
+	name: string,
+	title: string,
 	email: string,
-	password: string
+	phone: string,
 ): Promise<any> => {
-	try {
-		const hash = await hashPassword(password);
 
+    let code = await generateCode()
+	
+	try {
+		const hash = await hashPassword(code);
 		const user = new User();
-		user.first_name = first_name;
-		user.last_name = last_name;
+		user.name = name;
+		user.title = title;
 		user.email = email;
-		user.password = hash;
+		user.phone = phone;
+		user.code = code;
 
 		const errors = await validate(user, {
 			validationError: { target: false },
@@ -49,13 +54,13 @@ const fromEntity = (user: User) => {
 	return Object.assign(
 		{},
 		{
-			first_name: user.first_name,
-			last_name: user.last_name,
-			email: user.email,
-			profile_picture: user.profile_picture,
-			email_verified_at: user.email_verified_at,
 			id: user.id,
-			role: user.role,
+			name: user.name,
+			title: user.title,
+			email: user.email,
+			email_verified_at: user.email_verified_at,
+			phone: user.phone,
+			code: user.code,
 			created_at: user.created_at,
 			updated_at: user.updated_at,
 		}

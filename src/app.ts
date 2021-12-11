@@ -3,21 +3,12 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import 'reflect-metadata';
-// import { Activities } from './Activities/activities.entity';
-
 import { ConfigService, configVars, sentryConfig } from './config/config';
 import { connectToDb } from './config/db';
-import { Notifications } from './Notifications/notifications.entity';
-
 import UserRouter from './User/routers';
 import AuthRouter from './Authentication/routers';
-import NotificationRouter from './Notifications/routers';
-
-import RoleRouter from './Role/routers';
-
 import { User } from './User/user.entity';
 import { appErrorMiddleware } from './utils/central-error-middleware';
-
 import { origins } from './config/origins';
 
 
@@ -40,16 +31,6 @@ const routes = [
 		resource: UserRouter,
 	},
 
-	{
-		path: '/api/v2/notification',
-		resource: NotificationRouter,
-	},
-
-	{
-		path: '/api/v2/role',
-		resource: RoleRouter,
-	},
-
 ];
  
 interface IApp {
@@ -64,7 +45,6 @@ class App implements IApp {
 
 	constructor() {
 		this.app = express();
-		this.app.use(cors());
 		this.config();
 		this.routes();
 	}
@@ -73,7 +53,8 @@ class App implements IApp {
   
 	public config(): void {
 		//Connect to Mongoose
-	    this.app.use(cors());
+	
+		this.app.use(cors({ origin: origins }));
 
 		Sentry.init(sentryConfig(this.app));
 
@@ -81,7 +62,6 @@ class App implements IApp {
 		// TracingHandler creates a trace for every incoming request
 		this.app.use(Sentry.Handlers.tracingHandler());
 
-		//this.app.use(cors({ origin: origins }));
  
 		//configurations
 		this.app.use(express.json());
@@ -92,7 +72,7 @@ class App implements IApp {
 			entities: [
 				User,
 
-				Notifications,
+		
  
 				
 				// Activities,

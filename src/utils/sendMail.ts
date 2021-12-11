@@ -18,10 +18,10 @@ export const sendMail = async (userId:string, message:string, verificationToken?
         }
         });
         const mailOptions = {
-        from: 'Paperdaz', // sender address
+        from: 'Taxingen', // sender address
         to: email, // list of receivers
-        subject: 'Paperdaz Email Verification', // Subject line
-        html: '<h3>Hi '+user?.first_name+'</h3><br><p>click the button below to verify your email</p><button style="background-color: #78C360; color: #fff; font-size:16px;"><a href="https://paperdaz-backend.herokuapp.com/api/v2/auth/verify_email/?verificationToken='+verificationToken+'">Verify</a></button>'
+        subject: 'Taxingen Email Verification', // Subject line
+        html: '<h3>Hi '+user?.name+'</h3><br><p>click the button below to verify your email</p><button style="background-color: #78C360; color: #fff; font-size:16px;"><a href="https://taxingen-backend.herokuapp.com/api/v2/auth/verify_email/?verificationToken='+verificationToken+'">Verify</a></button>'
         };
         transporter.sendMail(mailOptions, function (err, info) {
         if(err)
@@ -29,7 +29,6 @@ export const sendMail = async (userId:string, message:string, verificationToken?
         else
         console.log(info);
         });
-
 
 
        return email;
