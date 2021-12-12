@@ -7,9 +7,15 @@ import { ConfigService, configVars, sentryConfig } from './config/config';
 import { connectToDb } from './config/db';
 import UserRouter from './User/routers';
 import AuthRouter from './Authentication/routers';
+import CategoryRouter from './Category/routers';
 import { User } from './User/user.entity';
 import { appErrorMiddleware } from './utils/central-error-middleware';
 import { origins } from './config/origins';
+import { Category } from './Category/categories.entities';
+import { Faq } from './FAQ/faq.entities';
+import { Jurisdiction } from './Jurisdiction/jurisdiction.entities';
+import { TaxReport } from './Tax-Report/tax-report.entities';
+import { Company } from './Company/company.entities';
 
 
 
@@ -29,6 +35,10 @@ const routes = [
 	{
 		path: '/api/v2/user',
 		resource: UserRouter,
+	},
+	{
+		path: '/api/v2/category',
+		resource: CategoryRouter,
 	},
 
 ];
@@ -71,10 +81,11 @@ class App implements IApp {
 		connectToDb({
 			entities: [
 				User,
-
-		
- 
-				
+				Category,
+				Faq,
+				Jurisdiction,
+				TaxReport,
+				Company
 				// Activities,
 			],
 		})

@@ -9,7 +9,7 @@ import {
 	OneToMany,
 } from 'typeorm';
 @Entity('country')
-export class Country extends BaseEntity {
+export class Company extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!:number;
 
