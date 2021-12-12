@@ -1,4 +1,4 @@
-import { Jurisdiction } from 'src/Jurisdiction/jurisdiction.entities';
+
 import {
 	Entity,
 	Column,
@@ -12,10 +12,10 @@ import {
 @Entity('Taxreports')
 export class Taxreport extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id!:number | string;
+    id!:number;
 
     @Column()
-    jurisdictionId!:string | number;
+    jurisdictionId!: string;
 
     @Column()
     filename!:string;

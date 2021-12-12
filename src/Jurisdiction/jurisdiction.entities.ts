@@ -16,6 +16,4 @@ export class Jurisdiction extends BaseEntity {
     @Column()
     name!:string;
 
-
-
 }
