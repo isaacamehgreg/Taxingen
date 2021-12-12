@@ -1,3 +1,4 @@
+import { Category } from '../Category/categories.entities';
 import {
 	Entity,
 	Column,
@@ -7,6 +8,8 @@ import {
 	UpdateDateColumn,
 	OneToOne,
 	OneToMany,
+	ManyToOne,
+	JoinColumn,
 } from 'typeorm';
 @Entity('faq')
 export class Faq extends BaseEntity {
@@ -18,5 +21,8 @@ export class Faq extends BaseEntity {
 
 	@Column()
     answer!:string;
+
+	@Column()
+	catId!: string;
 
 }

@@ -1,3 +1,4 @@
+import { Faq } from 'src/FAQ/faq.entities';
 import {
 	Entity,
 	Column,
@@ -11,9 +12,10 @@ import {
 @Entity('categories')
 export class Category extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id!:number;
+    id!:number | string;
 
     @Column()
     name!:string;
+
 
 }

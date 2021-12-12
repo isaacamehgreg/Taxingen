@@ -1,3 +1,4 @@
+import { Jurisdiction } from 'src/Jurisdiction/jurisdiction.entities';
 import {
 	Entity,
 	Column,
@@ -8,15 +9,14 @@ import {
 	OneToOne,
 	OneToMany,
 } from 'typeorm';
-@Entity('tax-reports')
-export class TaxReport extends BaseEntity {
+@Entity('Taxreports')
+export class Taxreport extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id!:number;
+    id!:number | string;
 
     @Column()
-    jurisdiction!:string;
+    jurisdictionId!:string | number;
 
     @Column()
     filename!:string;
-
 }
