@@ -7,32 +7,7 @@ import {
 	validationError,
 } from '../utils/exceptions';
 
-const validateSocialFields = async (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {
-	const { social_id, first_name, last_name, email, profile_picture} = req.body;
 
-	const format = Joi.object().keys({
-		social_id: Joi.string().required(),
-		first_name: Joi.string().required(),
-		last_name: Joi.string().required(),
-		email: Joi.string().email(),
-		profile_picture: Joi.string(),
-	});
-
-	format
-		.validateAsync({ social_id, first_name, last_name, email, profile_picture }, { stripUnknown: true })
-		.then(() => {
-			next();
-		})
-		.catch((err) => {
-			return res
-				.status(validationError().status)
-				.json(validationError(err.details[0].message).response);
-		});
-};
 const validateLoginFields = async (
 	req: Request,
 	res: Response,
@@ -188,5 +163,5 @@ export {
 	validateLoginFields,
 	validateUpdateFields,
 	validateUpdatePasswordFields,
-	validateSocialFields
+
 };

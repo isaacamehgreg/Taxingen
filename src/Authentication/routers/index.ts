@@ -2,7 +2,7 @@ import express from 'express';
 import {
 	validateLoginFields,
 	validateRegistrationFields,
-	validateSocialFields
+
 } from '../../middleware/authValidation';
 import controller from '../controllers';
 const router = express.Router();
