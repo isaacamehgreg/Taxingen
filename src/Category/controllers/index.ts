@@ -55,13 +55,18 @@ const editCategory = async (req: Request, res: Response, next: NextFunction) =>{
 
 const deleteCategory = async (req: Request, res: Response, next: NextFunction) =>{
     const catId:any = req.params.catId;
+
+    const check = await Category.findOne({id:catId})
+    if(!check){
+       return res.status(404).json({message:'category not found'});  
+    }
+
     const delCat = await Category.delete({id:catId});
     if(!delCat){
         res.status(404).json({status:'failed', message:"couldnt find category to delete"});
     }
     res.status(201).json({status:'success', message:"category deleted successfully"});
 }
-
 
 export default {
     getCategory,
