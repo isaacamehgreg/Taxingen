@@ -8,7 +8,7 @@ import {
 	OneToOne,
 	OneToMany,
 } from 'typeorm';
-@Entity('country')
+@Entity('company')
 export class Company extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!:number;

@@ -9,14 +9,16 @@ import {
 	OneToOne,
 	OneToMany,
 } from 'typeorm';
-@Entity('Taxreports')
+@Entity('taxreport')
 export class Taxreport extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id!:number;
+    id!: number;
 
     @Column()
     jurisdictionId!: string;
 
     @Column()
-    filename!:string;
+    filename!: string;
 }
+
+
