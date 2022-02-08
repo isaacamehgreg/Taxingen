@@ -21,7 +21,7 @@ const validateLoginFields = async (
 	});
 
 	format
-		.validateAsync({ email, password }, { stripUnknown: true })
+		.validateAsync({ email }, { stripUnknown: true })
 		.then(() => {
 			next();
 		})
