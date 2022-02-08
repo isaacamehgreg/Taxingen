@@ -44,6 +44,7 @@ const validateRegistrationFields = async (
 			email: Joi.string().email().required(),
 			first_name: Joi.string().required(),
 			last_name: Joi.string().required(),
+			phone: Joi.string().required()
 
 		});
 
@@ -51,7 +52,8 @@ const validateRegistrationFields = async (
 			{
 				first_name,
 				last_name,
-				email,	
+				email,
+				phone	
 			
 			},
 			{ stripUnknown: true }
@@ -62,6 +64,13 @@ const validateRegistrationFields = async (
 				.status(401)
 				.json(
 					new ForbiddenException('User with email already exists').response
+				);
+		}
+		if ((await User.count({ where: { phone } })) > 0) {
+			return res
+				.status(401)
+				.json(
+					new ForbiddenException('phone number already exists').response
 				);
 		}
 

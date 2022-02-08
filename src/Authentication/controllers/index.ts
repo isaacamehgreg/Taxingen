@@ -18,7 +18,7 @@ const Register = async (req: Request, res: Response) => {
 			.status(httpStatus.OK)
 			.json(new SuccessResponse('Registration successful a verification mail has been sent to your email', user));
 	} catch (error) {
-		throw error;
+		res.status(400).json({ error: error});
 	}
 };
 
