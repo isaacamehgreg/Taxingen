@@ -17,8 +17,17 @@ export class Taxreport extends BaseEntity {
     @Column()
     jurisdictionId!: string;
 
+	@Column()
+    jurisdiction!: string;
+
     @Column()
     filename!: string;
+
+	@Column()
+    userId!: string;
+
+	@Column()
+    company!: string;
 }
 
 

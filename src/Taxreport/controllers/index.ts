@@ -10,7 +10,6 @@ const getTaxreport = async (req: Request, res: Response, next: NextFunction) =>{
         res.status(404).json({status:'failed', message:"couldnt find Taxreport"});       
     }
     //replace with the category
-    
     res.status(202).json({status:'success', data:allTaxreport});
 
 }

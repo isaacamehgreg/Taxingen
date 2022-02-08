@@ -13,6 +13,9 @@ import { origins } from './config/origins';
 import UserRouter from './User/routers';
 import AuthRouter from './Authentication/routers';
 import CategoryRouter from './Category/routers';
+import JurisdictionRouter from './Jurisdiction/routes'; 
+import TaxreportRouter from './Taxreport/routes';
+import FaqRouter from './FAQ/routes'
 
 //entities
 import { Category } from './Category/categories.entities';
@@ -46,11 +49,15 @@ const routes = [
 	},
 	{
 		path: '/api/v1/jurisdiction',
-		resource: CategoryRouter,
+		resource: JurisdictionRouter,
 	},
 	{
 		path: '/api/v1/taxreport',
-		resource: CategoryRouter,
+		resource: TaxreportRouter,
+	},
+	{
+		path: '/api/v1/faq',
+		resource: FaqRouter,
 	},
 
 ];
