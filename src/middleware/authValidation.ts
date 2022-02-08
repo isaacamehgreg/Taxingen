@@ -13,11 +13,11 @@ const validateLoginFields = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const { email, password } = req.body;
+	const { email } = req.body;
 
 	const format = Joi.object().keys({
 		email: Joi.string().email().required(),
-	//	password: Joi.string().required(),
+		//password: Joi.string().required(),
 	});
 
 	format
