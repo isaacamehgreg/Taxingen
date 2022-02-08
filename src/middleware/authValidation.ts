@@ -117,7 +117,7 @@ const validateCompanyFields = async (
 			.status(400)
 			.json(new BadRequestException(err?.details[0].message).response);
 	}
-};
+}; 
 
 
 const validateUpdateFields = async (
