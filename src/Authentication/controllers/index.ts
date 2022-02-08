@@ -22,7 +22,7 @@ const Register = async (req: Request, res: Response) => {
 	}
 };
 
-
+ 
 
 const verifyCode = async (req: Request, res: Response) => {
 
