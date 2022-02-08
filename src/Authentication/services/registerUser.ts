@@ -9,7 +9,8 @@ import { generateCode } from '../../utils/generate-code';
 
 
 export const registerUser = async (
-	name: string,
+	first_name: string,
+	last_name: string,
 	title: string,
 	email: string,
 	phone: string,
@@ -20,11 +21,13 @@ export const registerUser = async (
 	try {
 		const hash = await hashPassword(code);
 		const user = new User();
-		user.name = name;
+		user.first_name = first_name;
+		user.last_name = last_name;
 		user.title = title;
 		user.email = email;
 		user.phone = phone;
 		user.code = code;
+
 
 		const errors = await validate(user, {
 			validationError: { target: false },
@@ -38,8 +41,9 @@ export const registerUser = async (
 		/**Register User */
 		const newUser = await getManager().save(user);
 		const verificationToken = await jwt.sign(newUser.id,'paperdaz');
+
 		if(verificationToken){
-			sendMail(user.id,'click the link to verify your email', verificationToken)
+			sendMail(user.id,'click the link to verify your email', code)
 		}
 
 
@@ -55,7 +59,8 @@ const fromEntity = (user: User) => {
 		{},
 		{
 			id: user.id,
-			name: user.name,
+		    first_name: user.first_name,
+			last_name: user.last_name,
 			title: user.title,
 			email: user.email,
 			email_verified_at: user.email_verified_at,

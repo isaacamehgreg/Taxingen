@@ -37,14 +37,14 @@ const validateRegistrationFields = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const { first_name, last_name, email, phone, password } = req.body;
+	const { first_name, last_name, email, phone } = req.body;
 
 	try {
 		const format = Joi.object().keys({
 			email: Joi.string().email().required(),
 			first_name: Joi.string().required(),
 			last_name: Joi.string().required(),
-			password: Joi.string().min(8).required(),
+
 		});
 
 		await format.validateAsync(
@@ -52,7 +52,7 @@ const validateRegistrationFields = async (
 				first_name,
 				last_name,
 				email,	
-				password,
+			
 			},
 			{ stripUnknown: true }
 		);
@@ -74,6 +74,42 @@ const validateRegistrationFields = async (
 			.json(new BadRequestException(err?.details[0].message).response);
 	}
 };
+
+const validateCompanyFields = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const { company_name, address,city,state,postal_code,country } = req.body;
+
+	try {
+		const format = Joi.object().keys({
+			company_name: Joi.string().required(),
+			address: Joi.string().required(),
+			city: Joi.string().required(),
+			state: Joi.string().required(),
+			postal_code: Joi.string().required(),
+			country: Joi.string().required()
+		});
+
+		await format.validateAsync(
+			{
+				company_name, address,city,state,postal_code,country	
+			
+			},
+			{ stripUnknown: true }
+		);
+
+
+		next();
+	} catch (error) {
+		const err: any = error;
+		return res
+			.status(400)
+			.json(new BadRequestException(err?.details[0].message).response);
+	}
+};
+
 
 const validateUpdateFields = async (
 	req: Request,
@@ -163,5 +199,6 @@ export {
 	validateLoginFields,
 	validateUpdateFields,
 	validateUpdatePasswordFields,
+	validateCompanyFields
 
 };

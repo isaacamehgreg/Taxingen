@@ -1,3 +1,4 @@
+import { User } from '../User/user.entity';
 import {
 	Entity,
 	Column,
@@ -7,6 +8,7 @@ import {
 	UpdateDateColumn,
 	OneToOne,
 	OneToMany,
+	JoinColumn,
 } from 'typeorm';
 @Entity('company')
 export class Company extends BaseEntity {
@@ -15,6 +17,7 @@ export class Company extends BaseEntity {
 
     @Column()
     name!:string;
+
 
     @Column()
     address!:string;
@@ -30,5 +33,10 @@ export class Company extends BaseEntity {
 
 	@Column()
     country!:string;
+
+	@OneToOne(()=>User)
+	@JoinColumn()
+	user!:User;
+	
 
 }

@@ -20,7 +20,10 @@ export class User extends BaseEntity {
 	id!: string;
 
 	@Column()
-	name!: string;
+	first_name!: string;
+
+	@Column()
+	last_name!: string;
 
 	@Column()
 	title!: string;
