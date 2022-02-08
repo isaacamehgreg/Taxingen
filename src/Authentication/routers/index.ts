@@ -1,4 +1,5 @@
 import express from 'express';
+import { checkIfAuth } from '../../middleware/checkUserAuth';
 import {
 	validateCompanyFields,
 	validateLoginFields,
@@ -18,12 +19,12 @@ router.post('/login', validateLoginFields, controller.Login);
 router.get('/verify_code/:user_id', controller.verifyCode);
 
 /**company */
-router.post('/company_info/:user_id', validateCompanyFields,  controller.companyInfo);
+router.post('/company_info', checkIfAuth, validateCompanyFields,  controller.companyInfo);
 
-router.get('/company_info/:user_id', controller.getCompanyInfo);
+router.get('/company_info',  checkIfAuth, controller.getCompanyInfo);
 
 
-export default router;
+export default router; 
 
 
 

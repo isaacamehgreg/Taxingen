@@ -28,6 +28,15 @@ export class Taxreport extends BaseEntity {
 
 	@Column()
     company!: string;
+
+	@Column()
+    companyId!: number;
+
+	@CreateDateColumn()
+	created_at!: Date;
+
+	@UpdateDateColumn()
+	updated_at!: Date;
 }
 
 

@@ -24,7 +24,7 @@ const checkIfAuth = (req: Request, res: Response, next: NextFunction) => {
 	} else {
 		return res.status(401).json({
 			status: 'error',
-			message: 'Please log in first',
+			message: 'provide the token first or proceed from your email',
 			data: null,
 		});
 	}

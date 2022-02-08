@@ -1,19 +1,21 @@
 
 
 import express from 'express';
+import { checkIfAuth } from '../../middleware/checkUserAuth';
 
 const router = express.Router();
 
 import controller from '../controllers';
 
+router.get('/all',controller.getAllTaxreport);
 
-router.get('/',controller.getTaxreport);
+router.get('/',checkIfAuth, controller.getTaxreport);
 
-router.post('/',controller.addTaxreport);
+router.post('/', checkIfAuth, controller.addTaxreport);
 
-router.patch('/:faqId', controller.editTaxreport);
+router.patch('/:taxreportId', controller.editTaxreport);
 
-router.delete('/:faqId', controller.deleteTaxreport);
+router.delete('/:taxreportId', controller.deleteTaxreport);
 
 
 

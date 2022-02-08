@@ -7,6 +7,7 @@ import { registerUser } from '../services/registerUser';
 import jwt from 'jsonwebtoken';
 import { User } from '../../User/user.entity';
 import { Company } from '../../Company/company.entities';
+import { jwtConfig } from '../../config/config';
 
 const Register = async (req: Request, res: Response) => {
 	const { first_name,last_name, title, email,  phone } = req.body;
@@ -35,14 +36,20 @@ const verifyCode = async (req: Request, res: Response) => {
 	 if(!user){
 		return res.json({status:'failed', message:"couldnt find user"}) 
 	 } 
-	 const updated = await User.update({id: user_id},{email_verified_at:Date})
- 	return res.json({status:'success', message:"user fetched from link", user:user}) 
+	 const tokenizeUser = {
+		 email: user.email
+	 }
+
+	 const token = await jwt.sign(tokenizeUser,jwtConfig.jwtSecret)
+
+	 const updated = await User.update({id: user.id},{email_verified_at:Date.now()})
+ 	return res.json({status:'success', message:"user fetched from link", user:user, token}) 
 
 }
 
 const companyInfo = async (req: Request, res: Response) => {
 
-	const user_id:any = req.params.user_id;
+	const user_id:any = res.locals.user.id
 	
 	if(!user_id){
 	   return res.json({status:"failed", message:"user id not provided"})
@@ -85,8 +92,8 @@ const companyInfo = async (req: Request, res: Response) => {
 }
 
 const getCompanyInfo = async (req: Request, res: Response) => {
-    const user_id:any = req.params.user_id;
-	
+	const user_id:any = res.locals.user.id
+
 	if(!user_id){
 	   return res.json({status:"failed", message:"user id not provided"})
 	}
