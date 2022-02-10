@@ -43,13 +43,31 @@ class UserController {
 		const user_id = req.params.user_id
 		const user =  await User.find();
 		if(!user)return res.status(404).json({message:'user not found'});
-		const {first_name, last_name, title, email, phone, company_name, company_address,company_city,company_state,company_postal_code,company_country} = req.body
+		const {first_name, last_name, title, email, phone} = req.body
 
-		if(!first_name || !last_name || !title || !email || !phone ||  !company_name|| !company_address|| !company_city || !company_state || !company_postal_code || !company_country){
+		if(!first_name || !last_name || !title || !email || !phone ){
 			return res.status(400).json({message:' please provide first_name, last_name, title, email, phone, company_name, company_address,company_city,company_state,company_postal_code,company_country'})
 		}
 
-		const update = User.update({id:user_id},{first_name, last_name, title, email, phone, company_name, company_address,company_city,company_state,company_postal_code,company_country})
+		const update = User.update({id:user_id},{first_name, last_name, title, email, phone})
+
+		return res
+			.status(httpStatus.OK)
+			.json(new SuccessResponse('User info updaate successfully'));
+
+	}
+
+	async editCompany (req: Request, res: Response) {
+		const user_id = req.params.user_id
+		const user =  await User.find();
+		if(!user)return res.status(404).json({message:'user not found'});
+		const {company_name, company_address,company_city,company_state,company_postal_code,company_country} = req.body
+
+		if(  !company_name|| !company_address|| !company_city || !company_state || !company_postal_code || !company_country){
+			return res.status(400).json({message:' please provide first_name, last_name, title, email, phone, company_name, company_address,company_city,company_state,company_postal_code,company_country'})
+		}
+
+		const update = User.update({id:user_id},{ company_name, company_address,company_city,company_state,company_postal_code,company_country})
 
 		return res
 			.status(httpStatus.OK)

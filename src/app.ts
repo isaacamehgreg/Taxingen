@@ -89,7 +89,7 @@ class App implements IApp {
 	public config(): void {
 		//Connect to Mongoose
 	
-		this.app.use(cors({ origin: origins }));
+		this.app.use(cors());
 
 		Sentry.init(sentryConfig(this.app));
 

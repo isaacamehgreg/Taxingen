@@ -17,7 +17,10 @@ const router = express.Router();
 router.get('/', UserController.getAllUser);
 router.get('/:user_id',  UserController.getUser);
 router.patch('/:user_id', UserController.editUser);
+router.patch('/company/:user_id', UserController.editUser);
 router.delete('/:user_id', UserController.deleteUser);
+
+
 
 
 

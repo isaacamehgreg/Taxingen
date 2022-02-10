@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "taxingen",
+    "private_key_id": "270f3a6017033e094a945c611a750e3e2603fe96",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCoxLwbuA5gYa0E\nQ0IqHQWpT5ZPHRyVls/tdRoWPLqcF/6c/OYk8HBwEpZnwS+qSEfyr4ked2u0nuYB\nMggXau+eW+dHQ+jeOU7K6Du7o0qzwPhYxCGWrfTHr/mcxInjg0ngoHeI5IWNLRzk\nT+DkfzOR4neNfzobB6TYkkGfMfMsqBhMozhOOzPHAdfHSk9zJYjpBaRP2E40Q86u\nIvQjPoDCSojtLk8DpvXdOKvVySHOJlM/Pfa0kKEMGR5+dIKQ8z5VmtIZMWsJRYkc\nqfz9W+Hr2d6LkZM/FLAWhTS/3m1iynL3A7n5fuSt8meEivWz2q9P2XVIFgWCEctS\nkW1O0v3fAgMBAAECggEAAXFinRAOYTp71OMW3q6rS1AlvxFSg49DB5C/yTY/zI4f\nateNaom0/pJ8SvxYQh5PRJ7c8gcloEZMDwh3hMnrIVz6EAE8rWflNT5Ea2HFhZiM\noTMccdw3tAr/WTQYD1hoPSe6yv33XW85cT1daXVBIpLCg4v1mixgmkqwXwgFQC4o\ntWZqPSVg293Qv7mqExq/ghfi7FHELG1RNv3anKqNglxuz93zcRriu+uoOE5hC5qE\nJ/6iZxCTuy2vS5gOvRQLp2jmC3MJF3BSkqCq/GTpOKzkURDxWoehMh228qDek6yZ\ndOzTBiWc3GFflRTguFgSROeLxoBH1+pibxwtIbjZXQKBgQDmZAySe64NyOI7xOiY\nUAhT/9iAbO3BERegvjn6Fq2qZus32HUjn18D87SUdQM8w17I1t0ZqFa39MNDpEH5\ntSlKjlbQ8YEJ7bU0kFLo8YSZSEZwd+0rG6fXp4w4X0xqR84i0MXCxHOToR992FQB\nKDrGKUeKGwxFERObWsUSxKCcCwKBgQC7hyyg/1BcJWXqrbCzxk1rL7A3dYfeJVYr\nLekzC+NkB7TCBcZ3BZkdgioqoBwluENcpvFDxroY4oVMt6U0qur9ryFykrVYRcLK\nMpkWbUmI6ox5/uF/6Kk3lNS9AST+RHXt+HeDwORP0/Wh1ok+SwI2qmx505vWp+wl\nm4UNb2+1/QKBgBDv9gSm1wroY8llFnxsFdCnFHGMkIYLDaOhmH2MQUQvwMcgQKxX\nwRJ3TiVD3PMQod09/o8uUwG/GsPURY1oBhsXD8bYmlXyhcnRembpqofiSltmVac/\npz0xchuK1gFSOhNRKdjBvIVz6O7Fgpd7L6b1ze6XQnWpZbmcGLTig7Q1AoGAYwt0\nANyYXvLJr3dpWqoj/bbERaZnymbB6jBneLSQtyZyy/8s4XQteK5lAvppo2p8+ZSa\n3Qc7ByWs7eYY9YZIcxBqhA8EhMjjptOuk2/JZO0soMqD44DIzzhmXCUcmsch2jxf\nM1FPxPHYTE/5UNNhKeo9POMM7gTm7r4DOiNfRykCgYBjwFR3QVPL8jlZi7iL3pC4\n43S29KTwyfO6WGlbnlTxqLHPIc5OVAJu0eanjWSYegD8hFIlXcNbFrT4pFRbXz2Y\ntJ5HDORsyFdTqXVUTZzj6weu74wpa85KgY+37Z6p1Rba18o9bSolO6S8+gsNTTwI\ncQ0CmTsrPsIDc0zfo3cLNQ==\n-----END PRIVATE KEY-----\n",
+    "client_email": "taxingen-emails@taxingen.iam.gserviceaccount.com",
+    "client_id": "106408529217490483525",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/taxingen-emails%40taxingen.iam.gserviceaccount.com"
+  }
