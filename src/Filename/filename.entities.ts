@@ -8,22 +8,21 @@ import {
 	UpdateDateColumn,
 	OneToOne,
 	OneToMany,
-	ManyToOne
+	ManyToOne,
 } from 'typeorm';
-import { Filename } from '../Filename/filename.entities';
-@Entity('jusrisdiction')
-export class Jurisdiction extends BaseEntity {
+import { Jurisdiction } from '../Jurisdiction/jurisdiction.entities';
+@Entity('filename')
+export class Filename extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!:number;
 
     @Column()
     name!:string;
 
-	@OneToMany(()=>Filename, filename=>filename.jurisdiction)
-	filename!: Filename[]
+	@ManyToOne(() =>Jurisdiction,jurisdiction=>jurisdiction.filename)
+	jurisdiction!:Jurisdiction
 
 
-	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.jurisdiction)
+	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.filename)
 	// taxreport!:Taxreport
-
 }

@@ -1,36 +1,33 @@
 
-import {
-	Entity,
-	Column,
-	PrimaryGeneratedColumn,
-	BaseEntity,
+import { Jurisdiction } from '../Jurisdiction/jurisdiction.entities';
+import { Filename } from '../Filename/filename.entities';
+import { Entity, Column, PrimaryGeneratedColumn,BaseEntity,
 	CreateDateColumn,
 	UpdateDateColumn,
 	OneToOne,
 	OneToMany,
 } from 'typeorm';
+import { User } from '../User/user.entity';
+import { filing_period } from '../config/client';
+
 @Entity('taxreport')
 export class Taxreport extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
-    jurisdictionId!: string;
+    // @OneToMany( () => Jurisdiction, jurisdiction=>jurisdiction.taxreport)
+	// jurisdiction!: Jurisdiction[]
 
-	@Column()
-    jurisdiction!: string;
+	// @OneToMany( () => Filename, filename=>filename.taxreport)
+	// filename!: Filename[]
 
-    @Column()
-    filename!: string;
+	@OneToMany( () => User, user=>user.taxreport)
+	user!: User[]
 
-	@Column()
-    userId!: string;
-
-	@Column()
-    company!: string;
-
-	@Column()
-    companyId!: number;
+    @Column({
+		default:filing_period.SIX_MONTH
+	})
+	filing_period!: string;
 
 	@CreateDateColumn()
 	created_at!: Date;

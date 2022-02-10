@@ -34,7 +34,7 @@ export class Company extends BaseEntity {
 	@Column()
     country!:string;
 
-	@OneToOne(()=>User)
+	@OneToOne(()=>User,{onDelete :'CASCADE'})
 	@JoinColumn()
 	user!:User;
 	

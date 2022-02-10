@@ -10,6 +10,8 @@ const getAllTaxreport = async (req: Request, res: Response, next: NextFunction) 
         res.status(404).json({status:'failed', message:"couldnt find Taxreport"});       
     }
     //replace with the category
+    
+
     res.status(202).json({status:'success', data:allTaxreport});
 }
 
@@ -22,17 +24,18 @@ const getTaxreport = async (req: Request, res: Response, next: NextFunction) =>{
      const user = await User.findOne({id: user_id});
      if(!user){
         return res.status(404).json({status:'failed', message:"couldnt find user"}) 
-     } 
-    const allTaxreport = await Taxreport.find({userId:user.id});
-    if(!allTaxreport){
-        res.status(404).json({status:'failed', message:"couldnt find Taxreport"});       
-    }
-    //replace with the category
-    res.status(202).json({status:'success', data:allTaxreport});
+      } 
+    // const allTaxreport = await Taxreport.find({userId:user.id});
+    // if(!allTaxreport){
+    //     res.status(404).json({status:'failed', message:"couldnt find Taxreport"});       
+    // }
+    // //replace with the category
+    // res.status(202).json({status:'success', data:allTaxreport});
 }
 
 const addTaxreport = async (req: Request, res: Response, next: NextFunction) =>{
     const user_id:any = res.locals.user.id
+
     if(!user_id){
         return res.json({status:"failed", message:"user id not provided"})
      }
@@ -47,18 +50,20 @@ const addTaxreport = async (req: Request, res: Response, next: NextFunction) =>{
      if(!company){
          return res.status(404).json({status:'failed', message:"no company found"}) 
      }
+
      const {jurisdictionId,filename} = req.body;
 
      if(!jurisdictionId && !filename){
         res.status(400).json({status:'failed', message:"field cannot be empty"});  
      }
 
+
      const newTaxreport = new Taxreport;
-     newTaxreport.jurisdictionId = jurisdictionId;
-     newTaxreport.jurisdiction = filename;
-     newTaxreport.userId = user.id;
-     newTaxreport.company = company.name;
-     newTaxreport.companyId = company.id;
+    //  newTaxreport.jurisdictionId = jurisdictionId;
+    //  newTaxreport.jurisdiction = filename;
+    //  newTaxreport.userId = user.id;
+    //  newTaxreport.company = company.name;
+    //  newTaxreport.companyId = company.id;
  
 
      await newTaxreport.save();
@@ -87,11 +92,11 @@ const editTaxreport = async (req: Request, res: Response, next: NextFunction) =>
      }
 
 
-    const update = await Taxreport.update({id: taxreportId}, {jurisdictionId: jurisdictionId, filename: filename});
+    // const update = await Taxreport.update({id: taxreportId}, {jurisdictionId: jurisdictionId, filename: filename});
    
-    if(!update){
-       return res.status(404).json({status:'failed', message:"couldnt find Taxreport with the id"});
-    }
+    // if(!update){
+    //    return res.status(404).json({status:'failed', message:"couldnt find Taxreport with the id"});
+    // }
      return res.status(201).json({status:'success', message:"Taxreport updated successfully"});
 
 }

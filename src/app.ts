@@ -16,6 +16,7 @@ import CategoryRouter from './Category/routers';
 import JurisdictionRouter from './Jurisdiction/routes'; 
 import TaxreportRouter from './Taxreport/routes';
 import FaqRouter from './FAQ/routes'
+import FilenameRouter from './Filename/routes'; 
 
 //entities
 import { Category } from './Category/categories.entities';
@@ -23,6 +24,7 @@ import { Faq } from './FAQ/faq.entities';
 import { Jurisdiction } from './Jurisdiction/jurisdiction.entities';
 import { Taxreport } from './Taxreport/taxreport.entities';
 import { Company } from './Company/company.entities';
+import { Filename } from './Filename/filename.entities';
 
 
 
@@ -58,6 +60,10 @@ const routes = [
 	{
 		path: '/api/v1/faq',
 		resource: FaqRouter,
+	},
+	{
+		path: '/api/v1/filename',
+		resource: FilenameRouter,
 	},
 
 ];
@@ -105,6 +111,7 @@ class App implements IApp {
 				Jurisdiction,
 				Taxreport,
 				Company,
+				Filename
 				
 			],
 		})

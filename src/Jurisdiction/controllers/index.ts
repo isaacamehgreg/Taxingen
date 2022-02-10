@@ -6,7 +6,7 @@ import { Jurisdiction } from "../jurisdiction.entities";
 
 const getJurisdiction = async (req: Request, res: Response, next: NextFunction) =>{
 
-    const allJurisdiction = await Jurisdiction.find();
+    const allJurisdiction = await Jurisdiction.find({relations:['filename']});
     if(!allJurisdiction){
         res.status(404).json({status:'failed', message:"couldnt find Jurisdiction"});       
     }
@@ -34,7 +34,6 @@ const editJurisdiction = async (req: Request, res: Response, next: NextFunction)
      const {name} = req.body;
 
   
-
      if(!name){
          return res.status(400).json({message:'field can not be empty'});
      }
