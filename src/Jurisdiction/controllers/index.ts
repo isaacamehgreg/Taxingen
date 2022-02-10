@@ -30,7 +30,7 @@ const addJurisdiction = async (req: Request, res: Response, next: NextFunction) 
 }
 
 const editJurisdiction = async (req: Request, res: Response, next: NextFunction) =>{
-     const catId:any = req.params.catId;
+     const jurisId:any = req.params.jurisId;
      const {name} = req.body;
 
   
@@ -38,13 +38,13 @@ const editJurisdiction = async (req: Request, res: Response, next: NextFunction)
          return res.status(400).json({message:'field can not be empty'});
      }
 
-     const check = await Jurisdiction.findOne({id:catId})
+     const check = await Jurisdiction.findOne({id:jurisId})
      if(!check){
         return res.status(404).json({message:'Jurisdiction not found'});  
      }
 
 
-    const update = await Jurisdiction.update({id: catId}, {name: name});
+    const update = await Jurisdiction.update({id: jurisId}, {name: name});
     console.log(update);
     if(!update){
        return res.status(404).json({status:'failed', message:"couldnt find Jurisdiction with the id"});
@@ -54,9 +54,9 @@ const editJurisdiction = async (req: Request, res: Response, next: NextFunction)
 }
 
 const deleteJurisdiction = async (req: Request, res: Response, next: NextFunction) =>{
-    const catId:any = req.params.catId;
-    const delCat = await Jurisdiction.delete({id:catId});
-    if(!delCat){
+    const jurisId:any = req.params.jurisId;
+    const deljuris = await Jurisdiction.delete({id:jurisId});
+    if(!deljuris){
         res.status(404).json({status:'failed', message:"couldnt find Jurisdiction to delete"});
     }
     res.status(201).json({status:'success', message:"Jurisdiction deleted successfully"});

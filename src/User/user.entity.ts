@@ -57,7 +57,7 @@ export class User extends BaseEntity {
 	@Column({
 		nullable: true,
 	})
-	company_adress!: string;
+	company_address!: string;
 
 	@Column({
 		nullable: true,
@@ -79,8 +79,8 @@ export class User extends BaseEntity {
 	})
 	company_country!: string;
 
-	@ManyToOne(() =>Taxreport,taxreport=>taxreport.user)
-	taxreport!:Taxreport
+	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.user)
+	// taxreport!:Taxreport
 
 	@CreateDateColumn()
 	created_at!: Date;

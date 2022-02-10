@@ -1,4 +1,3 @@
-
 import { Jurisdiction } from '../Jurisdiction/jurisdiction.entities';
 import { Filename } from '../Filename/filename.entities';
 import { Entity, Column, PrimaryGeneratedColumn,BaseEntity,
@@ -10,7 +9,7 @@ import { Entity, Column, PrimaryGeneratedColumn,BaseEntity,
 import { User } from '../User/user.entity';
 import { filing_period } from '../config/client';
 
-@Entity('taxreport')
+@Entity('taxreport') //filings
 export class Taxreport extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number;
@@ -21,8 +20,11 @@ export class Taxreport extends BaseEntity {
 	// @OneToMany( () => Filename, filename=>filename.taxreport)
 	// filename!: Filename[]
 
-	@OneToMany( () => User, user=>user.taxreport)
-	user!: User[]
+	// @OneToMany( () => User, user=>user.taxreport)
+	// created_by!: User[]
+
+	// @OneToMany( () => User, user=>user.taxreport)
+	// filed_by!: User[]
 
     @Column({
 		default:filing_period.SIX_MONTH

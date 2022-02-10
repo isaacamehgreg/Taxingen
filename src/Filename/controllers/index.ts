@@ -38,7 +38,7 @@ const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
 }
 
 const editFilename = async (req: Request, res: Response, next: NextFunction) =>{
-     const catId:any = req.params.catId;
+     const filenameId:any = req.params.filenameId;
      const {name} = req.body;
 
   
@@ -47,13 +47,13 @@ const editFilename = async (req: Request, res: Response, next: NextFunction) =>{
          return res.status(400).json({message:'field can not be empty'});
      }
 
-     const check = await Filename.findOne({id:catId})
+     const check = await Filename.findOne({id:filenameId})
      if(!check){
         return res.status(404).json({message:'Filename not found'});  
      }
 
 
-    const update = await Filename.update({id: catId}, {name: name});
+    const update = await Filename.update({id: filenameId}, {name: name});
     console.log(update);
     if(!update){
        return res.status(404).json({status:'failed', message:"couldnt find Filename with the id"});
@@ -63,9 +63,9 @@ const editFilename = async (req: Request, res: Response, next: NextFunction) =>{
 }
 
 const deleteFilename = async (req: Request, res: Response, next: NextFunction) =>{
-    const catId:any = req.params.catId;
-    const delCat = await Filename.delete({id:catId});
-    if(!delCat){
+    const filenameId:any = req.params.filenameId;
+    const delfilename = await Filename.delete({id:filenameId});
+    if(!delfilename){
         res.status(404).json({status:'failed', message:"couldnt find Filename to delete"});
     }
     res.status(201).json({status:'success', message:"Filename deleted successfully"});
