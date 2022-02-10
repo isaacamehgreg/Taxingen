@@ -25,6 +25,7 @@ import { Jurisdiction } from './Jurisdiction/jurisdiction.entities';
 import { Taxreport } from './Taxreport/taxreport.entities';
 import { Company } from './Company/company.entities';
 import { Filename } from './Filename/filename.entities';
+import { sendMail } from './utils/sendMail';
 
 
 
@@ -117,6 +118,7 @@ class App implements IApp {
 		})
 			.then(() => {
 				 console.log('-======>Database connected');
+				 sendMail('dd6ebce4-3d1d-41dc-bfca-3cb75421f52d',"test", 'yftwddtqfd')
 			})
 			.catch((err) => {
 				console.log(err);
