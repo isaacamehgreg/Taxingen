@@ -43,7 +43,11 @@ export const registerUser = async (
 		const verificationToken = await jwt.sign(newUser.id,'paperdaz');
 
 		if(verificationToken){
-			sendRegistrationMail(user.id,user.first_name, user.email, code)
+			try{
+				sendRegistrationMail(user.id,user.first_name, user.email, code)
+			}catch (error) {
+				console.log(error);
+			}
 		}
 
 		return fromEntity(newUser);
