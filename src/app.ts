@@ -118,7 +118,7 @@ class App implements IApp {
 		})
 			.then(async () => {
 				 console.log('-======>Database connected');
-				await  sendRegistrationMail('uywgidduygdiuywgdc','isaac',"isaacamehgreg@gmail.com", 'yftwddtqfd')
+			//	await  sendRegistrationMail('uywgidduygdiuywgdc','isaac',"isaacamehgreg@gmail.com", 'yftwddtqfd')
 				
 		     //await sendRegEmail('isaacamehgreg@gmail.com','Isaac',"test",'test');
 			})
