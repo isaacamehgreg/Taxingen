@@ -55,16 +55,16 @@ const routes = [
 		path: '/api/v1/jurisdiction',
 		resource: JurisdictionRouter,
 	},
-	{
-		path: '/api/v1/taxreport',
-		resource: TaxreportRouter,
-	},
+	// {
+	// 	path: '/api/v1/taxreport',
+	// 	resource: TaxreportRouter,
+	// },
 	{
 		path: '/api/v1/faq',
 		resource: FaqRouter,
 	},
 	{
-		path: '/api/v1/filename',
+		path: '/api/v1/taxreport',
 		resource: FilenameRouter,
 	},
 

@@ -26,10 +26,14 @@ export class Taxreport extends BaseEntity {
 	// @OneToMany( () => User, user=>user.taxreport)
 	// filed_by!: User[]
 
+	@Column()
+	
+	
+
     @Column({
 		default:filing_period.SIX_MONTH
 	})
-	filing_period!: string;
+	period!: string;
 
 	@CreateDateColumn()
 	created_at!: Date;

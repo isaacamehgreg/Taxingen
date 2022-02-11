@@ -1,5 +1,6 @@
 import { IsEmail, IsInt } from 'class-validator';
 import { Taxreport } from '../Taxreport/taxreport.entities';
+import {Filename} from "../Filename/filename.entities"
 
 import {
 	Entity,
@@ -81,6 +82,9 @@ export class User extends BaseEntity {
 
 	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.user)
 	// taxreport!:Taxreport
+
+	@OneToMany(()=>Filename, filename=>filename.jurisdiction)
+	filename!: Filename[]
 
 	@CreateDateColumn()
 	created_at!: Date;

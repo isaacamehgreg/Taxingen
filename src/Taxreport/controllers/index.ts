@@ -45,11 +45,10 @@ const addTaxreport = async (req: Request, res: Response, next: NextFunction) =>{
         return res.status(404).json({status:'failed', message:"couldnt find user"}) 
      } 
  
-     const company = await Company.findOne({user});
-     
-     if(!company){
-         return res.status(404).json({status:'failed', message:"no company found"}) 
-     }
+    //  const company = await Company.findOne({user});
+    //  if(!company){
+    //      return res.status(404).json({status:'failed', message:"no company found"}) 
+    //  }
 
      const {jurisdictionId,filename} = req.body;
 
@@ -66,7 +65,7 @@ const addTaxreport = async (req: Request, res: Response, next: NextFunction) =>{
     //  newTaxreport.companyId = company.id;
  
 
-     await newTaxreport.save();
+    //  await newTaxreport.save();
 
      if(!newTaxreport){
         res.status(404).json({status:'failed', message:"failed to create Taxreport"});    
