@@ -1,48 +1,35 @@
-const nodemailer = require('nodemailer');
-const {google} = require('googleapis');
-const config = require('./config.js');
+var nodemailer = require("nodemailer");
+console.log("started");
+const transport = nodemailer.createTransport({
+    //service: "hotmail",
+    host: "smtp-mail.outlook.com", 
+    secureConnection: false, // TLS requires secureConnection to be false
+    port: 587,
+    tls: {
+        ciphers:'SSLv3'
+     },
+    auth: {
+        user: "taxingen@hotmail.com",
+        pass: "mai1970!@#$"
+    },
+   
+});
 
-const OAuth2 = google.auth.oauth2;
+var mailOptions = {
+    from: 'taxingen@hotmail.com', // sender address
+    to: 'isaacamehgreg@gmail.com', // my mail
+    subject: `message subject`, // Subject line
+    text: 'plain text', // plain text body
+    // html: params.html, // html body
+    // attachments: params.attachments
+};
 
-const OAuth2_client = OAuth2(config.clientId, config.clientSecret)
-OAuth2_client.setCredentials({refresh_token : config.refresh_token})
-
-function sendMail(){
-    const  accessToken = OAuth2_client.getAccessToken()
-
-    const transport = nodemailer.createTransport({
-        service:"gmail",
-        auth:{
-            type:'OAuth2',
-            user: config.user,
-            clientId: config.clientId, 
-            clientSecret: config.clientSecret,
-            refreshToken: config.refresh_token,
-            accessToken:accessToken
-        }
-    })
-
-
-    const mail_options = {
-        from:"Taxingen <mai@taxingen.com>",
-        to: recipient,
-        subject:" this is a test mail",
-        html: get_html_message()
-    
+transport.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log('Error while sending mail: ' + error);
+    } else {
+        console.log('Message sent: %s', info.messageId);
     }
+    transport.close(); // shut down the connection pool, no more messages.
+});  
 
-    transport.sendMail(mail_options, function(err,result){
-        if(err){
-            console.log(err)
-        }else{
-            console.log(result)
-        }
-        transport.close()
-    })
-
-}
-function get_html_message(name){
-    return ` <h1>test<h1>`
-}
-
-send_mail('isaac', 'isaacamegreg@gmail.com')

@@ -27,7 +27,7 @@ import { Company } from './Company/company.entities';
 import { Filename } from './Filename/filename.entities';
 import {sendRegEmail}  from './Emails/sendRegEmail'
 import { sendRegistrationMail } from './utils/sendRegistrationMail';
-
+import {CronJobs} from './helpers/cronjobs'
 
 
 
@@ -119,7 +119,7 @@ class App implements IApp {
 			.then(async () => {
 				 console.log('-======>Database connected');
 			//	await  sendRegistrationMail('uywgidduygdiuywgdc','isaac',"isaacamehgreg@gmail.com", 'yftwddtqfd')
-				
+			//  CronJobs();
 		     //await sendRegEmail('isaacamehgreg@gmail.com','Isaac',"test",'test');
 			})
 			.catch((err) => {

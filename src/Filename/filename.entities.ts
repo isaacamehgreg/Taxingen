@@ -32,6 +32,12 @@ export class Filename extends BaseEntity {
 	@Column({default:false, nullable:true})
     isEmailSent!:boolean;
 
+	@CreateDateColumn()
+    created_at!: Date;
+
+	@Column()
+    expiration_date!: Date;
+
 
 	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.filename)
 	// taxreport!:Taxreport
