@@ -7,7 +7,7 @@ import * as path from 'path';
 
 export const sendRegistrationMail = async (user_id:string,first_name:string, email:string, code:string) =>{
 
-        const filePath = path.join(__dirname, './Emails/templates/registration.html');
+        const filePath = path.join(__dirname, '../../Emails/templates/registration.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
         const link = 'http://taxingen.com/company-registration/?code='+code+'&user_id='+user_id
