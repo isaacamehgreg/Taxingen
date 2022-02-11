@@ -120,7 +120,7 @@ class App implements IApp {
 				 console.log('-======>Database connected');
 				await  sendRegistrationMail('uywgidduygdiuywgdc','isaac',"isaacamehgreg@gmail.com", 'yftwddtqfd')
 				
-		   //	await sendRegEmail('isaacamehgreg@gmail.com','Isaac',"test",'test');
+		     //await sendRegEmail('isaacamehgreg@gmail.com','Isaac',"test",'test');
 			})
 			.catch((err) => {
 				console.log(err);
