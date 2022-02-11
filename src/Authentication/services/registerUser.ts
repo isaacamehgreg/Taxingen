@@ -44,7 +44,7 @@ export const registerUser = async (
 
 		if(verificationToken){
 			try{
-				sendRegistrationMail(user.id,user.first_name, user.email, code)
+				await sendRegistrationMail(user.id,user.first_name, user.email, code)
 			}catch (error) {
 				console.log(error);
 			}
