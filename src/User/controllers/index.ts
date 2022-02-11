@@ -84,7 +84,7 @@ class UserController {
 
 		const update = await User.delete({id:user_id});
 
-		return res.status(httpStatus.OK).json(new SuccessResponse('User info updaate successfully'));
+		return res.status(httpStatus.OK).json(new SuccessResponse('User info delete successfully'));
 
 	}
 

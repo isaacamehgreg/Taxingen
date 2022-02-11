@@ -9,7 +9,7 @@ export const sendRegistrationMail = async (user_id:string,first_name:string, ema
         const filePath = path.join(__dirname, '../Emails/templates/registration.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
-        const link = 'http://taxingen.com/company-registration/?code='+code+'&user_id:'+user_id
+        const link = 'http://taxingen.com/company-registration/?code='+code+'&user_id='+user_id
         const replacements = {
         first_name: first_name,
         code:code,
