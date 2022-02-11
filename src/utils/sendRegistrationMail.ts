@@ -37,7 +37,7 @@ export const sendRegistrationMail = async (user_id:string,first_name:string, ema
                 subject: 'Taxingen Registration', // Subject line
                 html: htmlToSend,
                 // html: '<h3>Hello '+user?.first_name+'</h3><br><p>You have begin the process to register on Taxingen, </b> Follow this link, with this code to, complete you registeration process</p></b><h3>'+code+'</h3></b><p><a href="http://taxingen.com/company-registration/?code='+code+'&user_id:'+user?.id+'">Click Here To Verify</a></p>'
-                };
+                }; 
                 transporter.sendMail(mailOptions, function (err: any, info:any) {
                 if(err)
                 console.log(err)
