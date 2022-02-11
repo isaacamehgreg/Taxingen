@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { sendMail } from '../../utils/sendMail';
+import { sendRegistrationMail } from '../../utils/sendRegistrationMail';
 import { getManager, getRepository } from 'typeorm';
 import { User } from '../../User/user.entity';
 import { hashPassword } from '../../utils/hash-password';
@@ -43,9 +43,8 @@ export const registerUser = async (
 		const verificationToken = await jwt.sign(newUser.id,'paperdaz');
 
 		if(verificationToken){
-			sendMail(user.id,'click the link to verify your email', code)
+			sendRegistrationMail(user.id,user.first_name, user.email, code)
 		}
-
 
 		return fromEntity(newUser);
 	} catch (error) {

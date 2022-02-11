@@ -25,7 +25,8 @@ import { Jurisdiction } from './Jurisdiction/jurisdiction.entities';
 import { Taxreport } from './Taxreport/taxreport.entities';
 import { Company } from './Company/company.entities';
 import { Filename } from './Filename/filename.entities';
-import { sendMail } from './utils/sendMail';
+import {sendRegEmail}  from './Emails/sendRegEmail'
+import { sendRegistrationMail } from './utils/sendRegistrationMail';
 
 
 
@@ -34,7 +35,7 @@ dotenv.config();
 
 
 
-
+ 
 new ConfigService(process.env).ensureValues(configVars);
 
 const routes = [
@@ -112,19 +113,20 @@ class App implements IApp {
 				Jurisdiction,
 				Taxreport,
 				Company,
-				Filename
-				
+				Filename	
 			],
 		})
-			.then(() => {
+			.then(async () => {
 				 console.log('-======>Database connected');
-				 sendMail('dd6ebce4-3d1d-41dc-bfca-3cb75421f52d',"test", 'yftwddtqfd')
+				await  sendRegistrationMail('uywgidduygdiuywgdc','isaac',"isaacamehgreg@gmail.com", 'yftwddtqfd')
+				
+		//		await sendRegEmail('isaacamehgreg@gmail.com','Isaac',"test",'test');
 			})
 			.catch((err) => {
 				console.log(err);
 				process.exit(1);
 			});
-	}
+	} 
  
 	
 	public routes(): void {
