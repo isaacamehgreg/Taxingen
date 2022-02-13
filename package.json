@@ -5,7 +5,7 @@
   "author": "Isaac Ameh isaacamehgreg@gmail.com",
   "private": true,
   "license": "MIT",
-  "engines": {
+  "engines_": {
     "node": "12.16.1",
     "npm": "6.14.4"
   },
