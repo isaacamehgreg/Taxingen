@@ -83,7 +83,7 @@ export class User extends BaseEntity {
 	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.user)
 	// taxreport!:Taxreport
 
-	@OneToMany(()=>Filename, filename=>filename.jurisdiction)
+	@OneToMany(()=>Filename, filename=>filename.jurisdiction,{onDelete:"CASCADE"})
 	filename!: Filename[]
 
 	@CreateDateColumn()
