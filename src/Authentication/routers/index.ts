@@ -23,6 +23,12 @@ router.post('/company_info', checkIfAuth, validateCompanyFields,  controller.com
 
 router.get('/company_info',  checkIfAuth, controller.getCompanyInfo);
 
+router.get('/resend/:user_id',  controller.resendEmail);
+
+router.get('/check_taxreport/:user_id',  controller.checkTaxReport);
+
+
+
 
 export default router; 
 

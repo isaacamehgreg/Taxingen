@@ -4,16 +4,17 @@ import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const sendRegistrationMail = async (user_id:string,first_name:string, email:string, code:string) =>{
+export const sendTwelveMonthMail = async (first_name:string, email:string, current_date:string, one_year_date: string, reports:string) =>{
 
-        const filePath = path.join(__dirname, '../Emails/templates/registration.html');
+        const filePath = path.join(__dirname, '../Emails/templates/twelve_month.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
-        const link = 'http://taxingen.com/company-registration/?code='+code+'&user_id='+user_id
+
         const replacements = {
         first_name: first_name,
-        code:code,
-        link:link,
+        current_date:'12/1/2000',
+        expiration_date:'12/1/2000',
+        reports:reports,
         };
         const htmlToSend = template(replacements);
         var transporter = nodemailer.createTransport({
@@ -30,7 +31,7 @@ export const sendRegistrationMail = async (user_id:string,first_name:string, ema
         const mailOptions = {
                 from: 'Taxingen <taxingen@gmail.com>', // sender address
                 to: email, // list of receivers
-                subject: 'Taxingen Registration', // Subject line
+                subject: 'Taxingen 12 Month Tax Repot', // Subject line
                 html: htmlToSend,
                 // html: '<h3>Hello '+user?.first_name+'</h3><br><p>You have begin the process to register on Taxingen, </b> Follow this link, with this code to, complete you registeration process</p></b><h3>'+code+'</h3></b><p><a href="http://taxingen.com/company-registration/?code='+code+'&user_id:'+user?.id+'">Click Here To Verify</a></p>'
                 };

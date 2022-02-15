@@ -8,6 +8,9 @@ import jwt from 'jsonwebtoken';
 import { User } from '../../User/user.entity';
 import { Company } from '../../Company/company.entities';
 import { jwtConfig } from '../../config/config';
+import { sendRegistrationMail } from '../../utils/sendRegistrationMail';
+import { Filename } from '../../Filename/filename.entities';
+
 
 const Register = async (req: Request, res: Response) => {
 	const { first_name,last_name, title, email,  phone } = req.body;
@@ -44,6 +47,46 @@ const verifyCode = async (req: Request, res: Response) => {
 
 	 const updated = await User.update({id: user.id},{email_verified_at:Date.now()})
  	return res.json({status:'success', message:"user fetched from link", user:user, token}) 
+
+}
+
+const resendEmail = async (req: Request, res: Response) => {
+
+	const user_id:any = req.params.user_id;
+   
+	if(!user_id){
+	   return res.json({status:"failed", message:"user id not provided"})
+	}
+
+	const user = await User.findOne({id: user_id});
+	if(!user){
+	   return res.json({status:'failed', message:"couldnt find user"}) 
+	} 
+
+
+	const resend = await sendRegistrationMail(user_id,user.first_name,user.email,user.code)
+	return res.json({status:'success', message:"email resent successfully"}) 
+
+}
+
+const checkTaxReport = async (req: Request, res: Response) => {
+
+	const user_id:any = req.params.user_id;
+   
+	if(!user_id){
+	   return res.json({status:"failed", message:"user id not provided"})
+	}
+
+	const user = await User.findOne({id: user_id});
+	if(!user){
+	   return res.json({status:'failed', message:"couldnt find user"}) 
+	} 
+
+	const check_taxreport = await Filename.findOne({user})
+	if(check_taxreport){return res.status(400).json({status:'failed', message:'user already filed a report'})}
+    else{
+		res.status(200).json({status:'success', message:'user can proceed to file a report'})
+	}
 
 }
 
@@ -143,5 +186,7 @@ export default {
 	Register,
 	verifyCode,
 	companyInfo,
-	getCompanyInfo
+	getCompanyInfo,
+	resendEmail,
+    checkTaxReport
 };

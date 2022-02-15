@@ -295,18 +295,17 @@
                             <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:0px 40px 15px;font-family:arial,helvetica,sans-serif;" align="left">
 
                               <div class="v-text-align" style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;">Hi {First Name},</p>
+                                <p style="font-size: 14px; line-height: 140%;">Hi {{first_name}},</p>
                                 <p style="font-size: 14px; line-height: 140%;">&nbsp;</p>
                                 <p style="font-size: 14px; line-height: 140%;">We're are glad to have you onboard with our AI Journey. </p>
                                 <p style="font-size: 14px; line-height: 140%;">&nbsp;</p>
                                 <p style="font-size: 14px; line-height: 140%;">As a token of thanks, you are rewarded to file following report/s for the next 12 months.&nbsp;</p>
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Starting Date:</strong> {Current Date}</p>
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Valid Till: </strong>{Exact Date after 12 months of Starting Date}</p>
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Starting Date:</strong> {{current_date}}</p>
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Valid Till: </strong>{{expiration_date}}</p>
                                 <p style="font-size: 14px; line-height: 140%;">&nbsp;</p>
-                                <p style="font-size: 14px; line-height: 140%;"><strong>List Loop {</strong></p>
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Report: </strong>{Report File Name},&nbsp;<strong>Jurisdiction: </strong>{State/Jurisdiction}</p>
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Report:</strong> {Report File Name}, <strong>Jurisdiction: </strong>{State/Jurisdiction}</p>
-                                <p style="font-size: 14px; line-height: 140%;"><strong>}</strong></p>
+                            
+                                <p style="font-size: 14px; line-height: 140%;"><strong>{{reports}}</strong></p>
+  
                               </div>
 
                             </td>

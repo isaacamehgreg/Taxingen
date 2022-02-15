@@ -2,6 +2,9 @@ import { NextFunction, Request, Response} from "express";
 import { Jurisdiction } from "../../Jurisdiction/jurisdiction.entities";
 import { Filename } from "../filename.entities";
 import { User } from '../../User/user.entity';
+import { sendTwelveMonthMail } from "../../utils/sendTwelvemonthMail";
+
+
 
 
 
@@ -28,7 +31,6 @@ const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
 
      const user = await User.findOne({id:userId});
      if(!user)return res.status(404).json({message: "user not found"})
-     
      
      const newFilename = new Filename;
      newFilename.name = name;
@@ -77,9 +79,48 @@ const deleteFilename = async (req: Request, res: Response, next: NextFunction) =
 }
 
 
+const add12MonthFilename = async (req: Request, res: Response, next: NextFunction) =>{
+    const {userId, period, reports} = req.body;
+
+    let twelve_month_data =[];
+    let twelve_month_text ='';
+
+    const user = await User.findOne({id:userId});
+    if(!user)return res.status(404).json({message: "user not found"})
+
+    //check that all Jurisdiction is correct
+    for(let i=0; i<reports.length; i++){
+        const jurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
+        if(!jurisdiction)return res.status(404).json({message: `jurisdiction for the report name ${reports[i].name} is not found`})
+    }
+
+    for(let i=0; i<reports.length; i++){
+        const newFilename = new Filename;
+        newFilename.name = reports[i].name;
+        newFilename.jurisdiction = reports[i].jurisdictionId;
+        newFilename.user = user;
+        newFilename.period = period;
+        await newFilename.save();
+
+        let getJurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
+        twelve_month_data.push({Name:reports[i].name, Jurisdiction: getJurisdiction?.name});
+        twelve_month_text += `Name: ${reports[i].name} Jurisdiction: ${getJurisdiction?.name}`
+    }
+
+    //send 12month email notification
+   // console.log(twelve_month_data);
+    console.log(twelve_month_text);
+    sendTwelveMonthMail(user.first_name,user.email,Date.now.toString(),Date.now.toString(),twelve_month_text)
+
+
+    return res.status(201).json({status:'success', message:"user has filed 12 mothn filing" });  
+}
+
+
 export default {
     getFilename,
     addFilename,
     editFilename,
-    deleteFilename
+    deleteFilename,
+    add12MonthFilename
 }
