@@ -99,7 +99,7 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
     if(!user)return res.status(404).json({message: "user not found"})
 
     const check = await Filename.findOne({user});
-    if(check)return res.status(400).json({message:'user already filed a report'})
+  //  if(check)return res.status(400).json({message:'user already filed a report'})
 
     //check that all Jurisdiction is correct
     for(let i=0; i<reports.length; i++){
@@ -119,13 +119,13 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
 
         let getJurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
         twelve_month_data.push({Name:reports[i].name, Jurisdiction: getJurisdiction?.name});
-        twelve_month_text += `Name: ${reports[i].name} Jurisdiction: ${getJurisdiction?.name}`
+        twelve_month_text += `Name: ${reports[i].name} Jurisdiction: ${getJurisdiction?.name}   `
     }
 
     //send 12month email notification
-   // console.log(twelve_month_data);
+    console.log(twelve_month_data);
     console.log(twelve_month_text);
-    sendTwelveMonthMail(user.first_name,user.email,moment().format('DD/MM/YYYY HH:mm'), moment().add(1,'year').format('DD/MM/YYYY HH:mm'),twelve_month_text)
+    sendTwelveMonthMail(user.first_name,user.email,moment().format('DD/MM/YYYY HH:mm'), moment().add(1,'year').format('DD/MM/YYYY HH:mm'),twelve_month_data)
 
 
     return res.status(201).json({status:'success', message:"user has filed 12 month taxreport" });  
