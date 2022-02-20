@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import Joi from 'joi';
+import { Webinar } from '../webinar/webinar.entity';
 import { User } from '../User/user.entity';
 import {
 	BadRequestException,
@@ -203,11 +204,56 @@ const validateUpdatePasswordFields = async (
 		});
 };
 
+const validateWebinarFields = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const { first_name, last_name, company, email } = req.body;
+
+	try {
+		const format = Joi.object().keys({
+			email: Joi.string().email().required(),
+			first_name: Joi.string().required(),
+			last_name: Joi.string().required(),
+			phone: Joi.string().required()
+
+		});
+
+		await format.validateAsync(
+			{
+				first_name,
+				last_name,
+				company,
+				email	
+			
+			},
+			{ stripUnknown: true }
+		);
+
+		if ((await Webinar.count({ where: { email } })) > 0) {
+			return res
+				.status(401)
+				.json(
+					new ForbiddenException('User with email already exists').response
+				);
+		}
+	
+		next();
+	} catch (error) {
+		const err: any = error;
+		return res
+			.status(400)
+			.json(new BadRequestException(err?.details[0].message).response);
+	}
+};
+
 export {
 	validateRegistrationFields,
 	validateLoginFields,
 	validateUpdateFields,
 	validateUpdatePasswordFields,
-	validateCompanyFields
+	validateCompanyFields,
+	validateWebinarFields
 
 };

@@ -12,8 +12,8 @@ export const sendTwelveMonthMail = async (first_name:string, email:string, curre
 
         const replacements = {
         first_name: first_name,
-        current_date:'12/1/2000',
-        expiration_date:'12/1/2000',
+        current_date:current_date,
+        expiration_date:one_year_date,
         reports:reports,
         };
         const htmlToSend = template(replacements);

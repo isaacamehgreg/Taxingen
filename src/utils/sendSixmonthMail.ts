@@ -4,8 +4,8 @@ import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const sixMonthMail = async (first_name:string, email:string, report_name:string, state:string, date:string, expiration_date:string) =>{
-
+export const sendSixMail = async (first_name:string, email:string, report_name:string, state:string, date:string, expiration_date:string) =>{
+        console.log('emailail is sent')
         const filePath = path.join(__dirname, '../Emails/templates/six_month.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
@@ -14,7 +14,7 @@ export const sixMonthMail = async (first_name:string, email:string, report_name:
         first_name: first_name,
         report_name:report_name,
         state:state,
-        date:date,
+        date:date, 
         expiration_date:expiration_date
       
         };

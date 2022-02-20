@@ -1,4 +1,4 @@
-import { sixMonthMail } from "../utils/sendSixmonthMail";
+// import { sixMonthMail } from "../../utils/sendSixmonthMail";
 import { Filename } from "../Filename/filename.entities";
 
 var cron = require('node-cron');
@@ -35,14 +35,14 @@ export const CronJobs = async() => {
 
                           }else{ //send 6month email
                               console.log('sending mail')
-                              await sixMonthMail( 
-                                taxreport.user.first_name,
-                                taxreport.user.email, 
-                                taxreport.name,
-                                taxreport.jurisdiction.name,  
-                                taxreport.created_at.toString(), 
-                                taxreport.expiration_date.toString()  
-                              )
+                              // await sixMonthMail( 
+                              //   taxreport.user.first_name,
+                              //   taxreport.user.email, 
+                              //   taxreport.name,
+                              //   taxreport.jurisdiction.name,  
+                              //   taxreport.created_at.toString(), 
+                              //   taxreport.expiration_date.toString()  
+                              // )
                               console.log('sent')
 
                           }

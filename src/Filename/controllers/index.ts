@@ -3,7 +3,8 @@ import { Jurisdiction } from "../../Jurisdiction/jurisdiction.entities";
 import { Filename } from "../filename.entities";
 import { User } from '../../User/user.entity';
 import { sendTwelveMonthMail } from "../../utils/sendTwelvemonthMail";
-
+import {sendSixMail} from "../../utils/sendSixmonthMail";
+import moment from "moment";
 
 
 
@@ -31,17 +32,25 @@ const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
 
      const user = await User.findOne({id:userId});
      if(!user)return res.status(404).json({message: "user not found"})
+
+     const check = await Filename.findOne({user});
+     if(check)return res.status(400).json({message:'user already filed a report'})
      
      const newFilename = new Filename;
      newFilename.name = name;
      newFilename.jurisdiction = jurisdiction;
      newFilename.user = user;
      newFilename.period = period;
+     newFilename.created_at = moment().format('DD/MM/YYYY HH:mm');
+     newFilename.expiration_date = moment().add(6,'month').format('DD/MM/YYYY HH:mm');
      await newFilename.save();
 
      if(!newFilename){
         res.status(404).json({status:'failed', message:"failed to create Taxreport"});    
      }
+
+     sendSixMail(newFilename.user.first_name, newFilename.user.email, newFilename.name, newFilename.jurisdiction.name, newFilename.created_at.toString(), newFilename.expiration_date.toString())
+     
 
      return res.status(201).json({status:'success', data: newFilename});  
 }
@@ -75,6 +84,7 @@ const deleteFilename = async (req: Request, res: Response, next: NextFunction) =
     if(!delfilename){
         res.status(404).json({status:'failed', message:"couldnt find Taxreport to delete"});
     }
+    
     res.status(201).json({status:'success', message:"Taxreport deleted successfully"});
 }
 
@@ -88,6 +98,9 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
     const user = await User.findOne({id:userId});
     if(!user)return res.status(404).json({message: "user not found"})
 
+    const check = await Filename.findOne({user});
+    if(check)return res.status(400).json({message:'user already filed a report'})
+
     //check that all Jurisdiction is correct
     for(let i=0; i<reports.length; i++){
         const jurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
@@ -100,6 +113,8 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
         newFilename.jurisdiction = reports[i].jurisdictionId;
         newFilename.user = user;
         newFilename.period = period;
+        newFilename.created_at = moment().format('DD/MM/YYYY HH:mm');
+        newFilename.expiration_date = moment().add(1,'year').format('DD/MM/YYYY HH:mm');
         await newFilename.save();
 
         let getJurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
@@ -110,10 +125,10 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
     //send 12month email notification
    // console.log(twelve_month_data);
     console.log(twelve_month_text);
-    sendTwelveMonthMail(user.first_name,user.email,Date.now.toString(),Date.now.toString(),twelve_month_text)
+    sendTwelveMonthMail(user.first_name,user.email,moment().format('DD/MM/YYYY HH:mm'), moment().add(1,'year').format('DD/MM/YYYY HH:mm'),twelve_month_text)
 
 
-    return res.status(201).json({status:'success', message:"user has filed 12 mothn filing" });  
+    return res.status(201).json({status:'success', message:"user has filed 12 month taxreport" });  
 }
 
 

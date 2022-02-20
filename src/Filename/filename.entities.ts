@@ -20,10 +20,10 @@ export class Filename extends BaseEntity {
     @Column()
     name!:string;
 
-	@ManyToOne(() =>User,user=>user.filename)
+	@ManyToOne(() =>User,user=>user.filename,{onDelete:"CASCADE"})
 	user!:User
 
-	@ManyToOne(() =>Jurisdiction,jurisdiction=>jurisdiction.filename)
+	@ManyToOne(() =>Jurisdiction,jurisdiction=>jurisdiction.filename,{onDelete:"CASCADE"})
 	jurisdiction!:Jurisdiction
 
     @Column()
@@ -32,11 +32,11 @@ export class Filename extends BaseEntity {
 	@Column({default:false, nullable:true})
     isEmailSent!:boolean;
 
-	@CreateDateColumn()
-    created_at!: Date;
+	@Column()
+    created_at!: string;
 
 	@Column()
-    expiration_date!: Date;
+    expiration_date!: string;
 
 
 	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.filename)

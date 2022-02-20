@@ -8,6 +8,7 @@ import { connectToDb } from './config/db';
 import { User } from './User/user.entity';
 import { appErrorMiddleware } from './utils/central-error-middleware';
 import { origins } from './config/origins';
+import moment from 'moment';
 
 //routers
 import UserRouter from './User/routers';
@@ -17,6 +18,7 @@ import JurisdictionRouter from './Jurisdiction/routes';
 import TaxreportRouter from './Taxreport/routes';
 import FaqRouter from './FAQ/routes'
 import FilenameRouter from './Filename/routes'; 
+import WebinarRouter from "./webinar/routes"
 
 //entities
 import { Category } from './Category/categories.entities';
@@ -25,7 +27,10 @@ import { Jurisdiction } from './Jurisdiction/jurisdiction.entities';
 import { Taxreport } from './Taxreport/taxreport.entities';
 import { Company } from './Company/company.entities';
 import { Filename } from './Filename/filename.entities';
-import {sendRegEmail}  from './Emails/sendRegEmail'
+import { Webinar } from './webinar/webinar.entity';
+
+
+
 import { sendRegistrationMail } from './utils/sendRegistrationMail';
 import {CronJobs} from './helpers/cronjobs'
 
@@ -67,6 +72,10 @@ const routes = [
 		path: '/api/v1/taxreport',
 		resource: FilenameRouter,
 	},
+	{
+		path: '/api/v1/webinar',
+		resource:WebinarRouter
+	}
 
 ];
  
@@ -118,9 +127,7 @@ class App implements IApp {
 		})
 			.then(async () => {
 				 console.log('-======>Database connected');
-			//	await  sendRegistrationMail('uywgidduygdiuywgdc','isaac',"isaacamehgreg@gmail.com", 'yftwddtqfd')
-			//  CronJobs();
-		     //await sendRegEmail('isaacamehgreg@gmail.com','Isaac',"test",'test');
+			 
 			})
 			.catch((err) => {
 				console.log(err);
