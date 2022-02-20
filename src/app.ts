@@ -91,6 +91,7 @@ class App implements IApp {
 
 	constructor() {
 		this.app = express();
+		this.app.set('view engine', 'ejs');
 		this.config();
 		this.routes();
 	}
@@ -122,7 +123,8 @@ class App implements IApp {
 				Jurisdiction,
 				Taxreport,
 				Company,
-				Filename	
+				Filename,
+				Webinar	
 			],
 		})
 			.then(async () => {

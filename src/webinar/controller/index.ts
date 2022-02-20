@@ -18,5 +18,16 @@ export const WebinarRegiteration = async(req: Request, res: Response, next: Next
 
 export const WebinarAttendees = async(req: Request, res: Response, next: NextFunction) =>{
     const attendees = await Webinar.find();
-    res.send(attendees)
+    res.render('attendees', {attendees:attendees});
+}
+
+export const WebinarRemove = async(req: Request, res: Response, next: NextFunction)=>{
+    const id = req.params.id;
+    const check = await Webinar.findOne({id})
+
+    if(!check)return res.status(404).send('attendee not found');
+
+    const deleteAttendee = await Webinar.delete({id});
+
+    res.redirect('back');
 }

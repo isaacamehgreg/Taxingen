@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>Webinar Attendees</h2>
+
+<table>
+  <tr>
+    <th>first name</th>
+    <th>last name</th>
+    <th>Company</th>
+    <th>Email</th>
+    <th>Registered At</th>
+    <th>delete</th>
+  </tr>
+
+  <% for(let i = 0; i < attendees.length; i++){ %>
+    <tr>
+      <td> <%= attendees[i].first_name %></td>
+      <td> <%= attendees[i].last_name %></td>
+      <td> <%= attendees[i].company %></td>
+      <td> <%= attendees[i].email %></td>
+      <td> <%= attendees[i].created_at %></td>
+      <td><a href="/api/v1/webinar/remove/<%= attendees[i].id%>" style="color: red">Remove Attendee</a></td>
+    </tr>
+  <% } %>
+
+
+</table>
+
+</body>
+</html>

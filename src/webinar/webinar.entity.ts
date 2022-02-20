@@ -1,5 +1,5 @@
 
-import {  BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {  BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('webinar')
 export class Webinar extends BaseEntity {
@@ -19,5 +19,8 @@ export class Webinar extends BaseEntity {
 
     @Column()
     email!:string;
+
+    @CreateDateColumn()
+    created_at!:Date;
 
 }

@@ -216,7 +216,7 @@ const validateWebinarFields = async (
 			email: Joi.string().email().required(),
 			first_name: Joi.string().required(),
 			last_name: Joi.string().required(),
-			phone: Joi.string().required()
+			company: Joi.string().required()
 
 		});
 
