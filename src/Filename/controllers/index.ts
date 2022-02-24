@@ -21,7 +21,7 @@ const getFilename = async (req: Request, res: Response, next: NextFunction) =>{
 }
 
 const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
-     const {name, jurisdictionId, period, userId} = req.body;
+     const {name, jurisdictionId, period, userId, created_at, expiration_date} = req.body;
 
      if(!name){
         res.status(404).json({status:'failed', message:"please provide name and jurisdictionId"});    
@@ -35,21 +35,25 @@ const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
 
      const check = await Filename.findOne({user});
      if(check)return res.status(400).json({message:'user already filed a report'})
+
+     if(!created_at)return res.status(400).json({message:'please provided created at date'})
+     if(!expiration_date)return res.status(400).json({message:'please provided expiration date'})
+
      
      const newFilename = new Filename;
      newFilename.name = name;
      newFilename.jurisdiction = jurisdiction;
      newFilename.user = user;
      newFilename.period = period;
-     newFilename.created_at = moment().format('DD/MM/YYYY HH:mm');
-     newFilename.expiration_date = moment().add(6,'month').format('DD/MM/YYYY HH:mm');
+     newFilename.created_at = created_at;
+     newFilename.expiration_date =  expiration_date;
      await newFilename.save();
 
      if(!newFilename){
         res.status(404).json({status:'failed', message:"failed to create Taxreport"});    
      }
 
-     sendSixMail(newFilename.user.first_name, newFilename.user.email, newFilename.name, newFilename.jurisdiction.name, newFilename.created_at.toString(), newFilename.expiration_date.toString())
+     sendSixMail(newFilename.user.first_name, newFilename.user.email, newFilename.name, newFilename.jurisdiction.name,created_at,expiration_date)
      
 
      return res.status(201).json({status:'success', data: newFilename});  
@@ -90,7 +94,7 @@ const deleteFilename = async (req: Request, res: Response, next: NextFunction) =
 
 
 const add12MonthFilename = async (req: Request, res: Response, next: NextFunction) =>{
-    const {userId, period, reports} = req.body;
+    const {userId, period, reports, created_at, expiration_date} = req.body;
 
     let twelve_month_data =[];
     let twelve_month_text ='';
@@ -107,14 +111,17 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
         if(!jurisdiction)return res.status(404).json({message: `jurisdiction for the report name ${reports[i].name} is not found`})
     }
 
+    if(!created_at)return res.status(400).json({message:'please provided created at date'})
+    if(!expiration_date)return res.status(400).json({message:'please provided expiration date'})
+
     for(let i=0; i<reports.length; i++){
         const newFilename = new Filename;
         newFilename.name = reports[i].name;
         newFilename.jurisdiction = reports[i].jurisdictionId;
         newFilename.user = user;
         newFilename.period = period;
-        newFilename.created_at = moment().format('DD/MM/YYYY HH:mm');
-        newFilename.expiration_date = moment().add(1,'year').format('DD/MM/YYYY HH:mm');
+        newFilename.created_at = created_at //moment().format('DD/MM/YYYY HH:mm');
+        newFilename.expiration_date = expiration_date // moment().add(1,'year').format('DD/MM/YYYY HH:mm');
         await newFilename.save();
 
         let getJurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
@@ -125,7 +132,7 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
     //send 12month email notification
     console.log(twelve_month_data);
     console.log(twelve_month_text);
-    sendTwelveMonthMail(user.first_name,user.email,moment().format('DD/MM/YYYY HH:mm'), moment().add(1,'year').format('DD/MM/YYYY HH:mm'),twelve_month_data)
+    sendTwelveMonthMail(user.first_name,user.email,created_at, expiration_date,twelve_month_data)
 
 
     return res.status(201).json({status:'success', message:"user has filed 12 month taxreport" });  

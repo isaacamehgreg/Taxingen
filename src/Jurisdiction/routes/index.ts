@@ -9,6 +9,8 @@ import controller from '../controllers';
 
 router.get('/',controller.getJurisdiction);
 
+router.get('/search/',controller.searchJurisdiction);
+
 router.post('/',controller.addJurisdiction);
 
 router.patch('/:jurisId', controller.editJurisdiction);

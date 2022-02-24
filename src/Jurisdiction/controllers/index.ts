@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response} from "express";
 import { Jurisdiction } from "../jurisdiction.entities";
+import { Like } from "typeorm";
+import console from "console";
 
 
 
@@ -62,10 +64,41 @@ const deleteJurisdiction = async (req: Request, res: Response, next: NextFunctio
     res.status(201).json({status:'success', message:"Jurisdiction deleted successfully"});
 }
 
+const searchJurisdiction = async (req: Request, res: Response, next: NextFunction)=>{
+    const query:string|any = req.query.query
+   
+    var queries = [];
+    
+     if(query.includes(' ')){
+       queries = query.split(' ');
+     }else{
+         queries.push(query);
+     }
+
+     console.log(queries)
+
+      var result = [];
+
+     if(queries.length > -1) {
+    
+        for(var i= 0; i<queries.length; i++) {
+          var file =  await Jurisdiction.find({name: Like("%"+queries[i]+"%")})
+          result.push(file);
+          console.log(queries[i])
+        }
+    
+      }else{
+        console.log('here');
+        result.push(await Jurisdiction.find())
+      }
+      res.status(200).json({status: 'success', result})
+}
+
 
 export default {
     getJurisdiction,
     addJurisdiction,
     editJurisdiction,
-    deleteJurisdiction
+    deleteJurisdiction,
+    searchJurisdiction
 }
