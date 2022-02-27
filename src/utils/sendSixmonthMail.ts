@@ -9,7 +9,7 @@ export const sendSixMail = async (first_name:string, email:string, report_name:s
         const filePath = path.join(__dirname, '../Emails/templates/six_month.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
-        const link = `http://www.taxingen.com/tax-report-bank/?code=${code}$user_id=${user_id}`;
+        const link = `http://www.taxingen.com/tax-report-bank/?code=${code}&user_id=${user_id}`;
       
         const replacements = {
         first_name: first_name,

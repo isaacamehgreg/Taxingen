@@ -34,7 +34,7 @@ const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
      if(!user)return res.status(404).json({message: "user not found"})
 
      const check = await Filename.findOne({user});
-     if(check)return res.status(400).json({message:'user already filed a report'})
+    // if(check)return res.status(400).json({message:'user already filed a report'})
 
      if(!created_at)return res.status(400).json({message:'please provided created at date'})
      if(!expiration_date)return res.status(400).json({message:'please provided expiration date'})
