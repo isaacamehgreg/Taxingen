@@ -4,18 +4,20 @@ import * as handlebars from 'handlebars';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const sendSixMail = async (first_name:string, email:string, report_name:string, state:string, date:string, expiration_date:string) =>{
+export const sendSixMail = async (first_name:string, email:string, report_name:string, state:string, date:string, expiration_date:string, code:string, user_id:string) =>{
         console.log('emailail is sent')
         const filePath = path.join(__dirname, '../Emails/templates/six_month.html');
         const source = fs.readFileSync(filePath, 'utf-8').toString();
         const template = handlebars.compile(source);
+        const link = `http://www.taxingen.com/tax-report-bank/?code=${code}$user_id=${user_id}`;
       
         const replacements = {
         first_name: first_name,
         report_name:report_name,
         state:state,
         date:date, 
-        expiration_date:expiration_date
+        expiration_date:expiration_date,
+        link:link
       
         };
         const htmlToSend = template(replacements);

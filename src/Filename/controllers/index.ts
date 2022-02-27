@@ -53,7 +53,7 @@ const addFilename = async (req: Request, res: Response, next: NextFunction) =>{
         res.status(404).json({status:'failed', message:"failed to create Taxreport"});    
      }
 
-     sendSixMail(newFilename.user.first_name, newFilename.user.email, newFilename.name, newFilename.jurisdiction.name,created_at,expiration_date)
+     sendSixMail(newFilename.user.first_name, newFilename.user.email, newFilename.name, newFilename.jurisdiction.name,created_at,expiration_date, newFilename.user.code,newFilename.user.id)
      
 
      return res.status(201).json({status:'success', data: newFilename});  
