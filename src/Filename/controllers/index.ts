@@ -102,8 +102,6 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
     const user = await User.findOne({id:userId});
     if(!user)return res.status(404).json({message: "user not found"})
 
-    const check = await Filename.findOne({user});
-    if(check)return res.status(400).json({message:'user already filed a report'})
 
     //check that all Jurisdiction is correct
     for(let i=0; i<reports.length; i++){

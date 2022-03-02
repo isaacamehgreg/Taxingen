@@ -83,7 +83,7 @@ const checkTaxReport = async (req: Request, res: Response) => {
 	} 
 
 	const check_taxreport = await Filename.findOne({user})
-	if(check_taxreport){return res.status(400).json({status:'failed', message:'user already filed a report'})}
+	if(check_taxreport){return res.status(400).json({status:'failed', message:'user already filed a report', report: check_taxreport})}
     else{
 		res.status(200).json({status:'success', message:'user can proceed to file a report'})
 	}
