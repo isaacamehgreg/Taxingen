@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-export const checkAdmin = async (
+export const checkIfAdmin = async (
 	req: Request,
 	res: Response,
 	next: NextFunction

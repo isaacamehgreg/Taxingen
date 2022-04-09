@@ -102,7 +102,6 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
     const user = await User.findOne({id:userId});
     if(!user)return res.status(404).json({message: "user not found"})
 
-
     //check that all Jurisdiction is correct
     for(let i=0; i<reports.length; i++){
         const jurisdiction = await Jurisdiction.findOne({id:reports[i].jurisdictionId});
@@ -118,7 +117,7 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
         newFilename.jurisdiction = reports[i].jurisdictionId;
         newFilename.user = user;
         newFilename.period = period;
-        newFilename.created_at = created_at //moment().format('DD/MM/YYYY HH:mm');
+        newFilename.created_at = created_at //moment().format('DD/MM/YYYY HH:mm');`
         newFilename.expiration_date = expiration_date // moment().add(1,'year').format('DD/MM/YYYY HH:mm');
         await newFilename.save();
 
@@ -135,7 +134,7 @@ const add12MonthFilename = async (req: Request, res: Response, next: NextFunctio
 
     return res.status(201).json({status:'success', message:"user has filed 12 month taxreport" });  
 }
-
+ 
 
 export default {
     getFilename,

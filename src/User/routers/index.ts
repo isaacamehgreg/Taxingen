@@ -5,7 +5,7 @@ import {
 	validateUpdateFields,
 	validateUpdatePasswordFields,
 } from '../../middleware/authValidation';
-import { checkAdmin } from 'src/middleware/adminRoleValidation';
+import { checkIfAdmin } from '../../middleware/adminRoleValidation';
 const router = express.Router();
 
 // router.get('', UserController.createUser.bind(UserController));
@@ -18,7 +18,7 @@ router.get('/', UserController.getAllUser);
 router.get('/:user_id',  UserController.getUser);
 router.patch('/:user_id', UserController.editUser);
 router.patch('/company/:user_id', UserController.editUser);
-router.delete('/:user_id', UserController.deleteUser);
+router.delete('/:user_id',checkIfAdmin, UserController.deleteUser);
 
 
 

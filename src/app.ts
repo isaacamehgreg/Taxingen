@@ -9,6 +9,7 @@ import { User } from './User/user.entity';
 import { appErrorMiddleware } from './utils/central-error-middleware';
 import { origins } from './config/origins';
 import moment from 'moment';
+import { hashPassword } from './utils/hash-password';
 
 //routers
 import UserRouter from './User/routers';
@@ -123,21 +124,23 @@ class App implements IApp {
 				Jurisdiction,
 				Taxreport,
 				Company,
-				Filename,
-				Webinar	
+				Filename, 
+				Webinar	 
 			],
 		})
 			.then(async () => {
-				 console.log('-======>Database connected');
-			 
-			})
+				 console.log('🚀 Database connected');
+				 const hash = await hashPassword("12345");
+				 console.log((await User.find({id: "de61971e-0e0d-4f1e-adee-795c7e537aee"})).length)
+			     await User.update({id: "de61971e-0e0d-4f1e-adee-795c7e537aee"},{password: hash, role: "admin", email: "blackgenius9000@gmail.com"}).then(async () => {console.log('Updated')})               
+			}) 
 			.catch((err) => {
 				console.log(err);
 				process.exit(1);
 			});
 	} 
- 
-	
+  
+
 	public routes(): void {
 		// this.app.use('*', UserRouter);
 
@@ -148,5 +151,6 @@ class App implements IApp {
 		this.app.use(appErrorMiddleware);
 	}
 }
-
+ 
 export default new App().app;
+ 

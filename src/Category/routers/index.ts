@@ -6,14 +6,18 @@ const router = express.Router();
 
 import controller from '../controllers';
 
+import {checkIfAuth} from '../../middleware/checkUserAuth'
+import { checkIfAdmin } from '../../middleware/adminRoleValidation';
+
+
 
 router.get('/',controller.getCategory);
 
-router.post('/',controller.addCategory);
+router.post('/',checkIfAuth, checkIfAdmin, controller.addCategory);
 
-router.patch('/:catId', controller.editCategory);
+router.patch('/:catId', checkIfAuth, checkIfAdmin,checkIfAuth ,controller.editCategory);
 
-router.delete('/:catId', controller.deleteCategory);
+router.delete('/:catId',checkIfAuth, checkIfAdmin, checkIfAuth, controller.deleteCategory);
 
 
 

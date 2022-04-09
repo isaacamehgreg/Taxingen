@@ -1,6 +1,8 @@
 
 
 import express from 'express';
+import { checkIfAdmin } from '../../middleware/adminRoleValidation';
+import { checkIfAuth } from '../../middleware/checkUserAuth';
 
 const router = express.Router();
 
@@ -9,13 +11,13 @@ import controller from '../controllers';
 
 router.get('/',controller.getFilename);
 
-router.post('/',controller.addFilename);
+router.post('/', controller.addFilename);
 
-router.post('/twelvemonth',controller.add12MonthFilename);
+router.post('/twelvemonth', controller.add12MonthFilename);
 
-router.patch('/:filenameId', controller.editFilename);
+router.patch('/:filenameId', checkIfAuth, checkIfAdmin, controller.editFilename);
 
-router.delete('/:filenameId', controller.deleteFilename);
+router.delete('/:filenameId',checkIfAuth, checkIfAdmin, controller.deleteFilename);
 
 
 

@@ -1,6 +1,8 @@
 
 
 import express from 'express';
+import { checkIfAdmin } from '../../middleware/adminRoleValidation';
+import { checkIfAuth } from '../../middleware/checkUserAuth';
 
 const router = express.Router();
 
@@ -13,9 +15,9 @@ router.get('/search/',controller.searchJurisdiction);
 
 router.post('/',controller.addJurisdiction);
 
-router.patch('/:jurisId', controller.editJurisdiction);
+router.patch('/:jurisId',checkIfAuth, checkIfAdmin, controller.editJurisdiction);
 
-router.delete('/:jurisId', controller.deleteJurisdiction);
+router.delete('/:jurisId',checkIfAuth, checkIfAdmin, controller.deleteJurisdiction);
 
 
 

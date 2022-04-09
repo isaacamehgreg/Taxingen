@@ -29,7 +29,15 @@ export class Filename extends BaseEntity {
     @Column()
     period!:number;
 
-	@Column({default:false, nullable:true})
+	@Column({
+		default:false
+	})
+	isAccepted!:boolean;
+
+	@Column({
+		default:false, 
+		nullable:true
+	})
     isEmailSent!:boolean;
 
 	@Column()
@@ -39,6 +47,4 @@ export class Filename extends BaseEntity {
     expiration_date!: string;
 
 
-	// @ManyToOne(() =>Taxreport,taxreport=>taxreport.filename)
-	// taxreport!:Taxreport
 }

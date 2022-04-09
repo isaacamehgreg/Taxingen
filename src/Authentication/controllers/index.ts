@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { SuccessResponse } from '../../utils/success-response';
-import { loginUser } from '../services/loginUser';
+import { loginAdmin, loginUser } from '../services/loginUser';
 import { registerUser } from '../services/registerUser';
 
 import jwt from 'jsonwebtoken';
@@ -10,11 +10,13 @@ import { Company } from '../../Company/company.entities';
 import { jwtConfig } from '../../config/config';
 import { sendRegistrationMail } from '../../utils/sendRegistrationMail';
 import { Filename } from '../../Filename/filename.entities';
+import { forget_password } from '../services/forgetPassword';
+import { sendForgetPasswordMail } from '../../utils/sendForgetPaswordMail';
+import generateToken from '../../utils/generate-token';
 
 
 const Register = async (req: Request, res: Response) => {
 	const { first_name,last_name, title, email,  phone } = req.body;
-
 	try {
 		const user = await registerUser( first_name,last_name, title, email, phone);
 		return res
@@ -24,11 +26,10 @@ const Register = async (req: Request, res: Response) => {
 		res.status(400).json({ error: error});
 	}
 };
-
  
 
 const verifyCode = async (req: Request, res: Response) => {
-
+ 
      const user_id:any = req.params.user_id;
 	
 	 if(!user_id){
@@ -49,7 +50,8 @@ const verifyCode = async (req: Request, res: Response) => {
  	return res.json({status:'success', message:"user fetched from link", user:user, token}) 
 
 }
-
+ 
+ 
 const resendEmail = async (req: Request, res: Response) => {
 
 	const user_id:any = req.params.user_id;
@@ -68,6 +70,7 @@ const resendEmail = async (req: Request, res: Response) => {
 	return res.json({status:'success', message:"email resent successfully"}) 
 
 }
+
 
 const checkTaxReport = async (req: Request, res: Response) => {
 
@@ -174,6 +177,45 @@ const Login = async (req: Request, res: Response) => {
 };
 
 
+const AdminLogin = async (req: Request, res: Response) => {
+	const { email, password } = req.body;
+	try {
+		const result = await loginAdmin(email, password);
+				
+			return res
+				.status(result.status)
+				.json(result);
+		
+	} catch (error) {
+		throw error;
+	}
+};
+
+
+const ForgetPassword = async (req: Request, res: Response) => {
+	const { email} = req.body;
+	try {
+		const result = await forget_password(email);
+
+		const user = await User.findOne({email})
+
+		if(!user) return res.status(404).json({message:"user not found"})
+
+		const token = await generateToken(user)
+
+		await sendForgetPasswordMail(email, token)
+
+		
+			return res
+				.status(200)
+				.json({message:"reset email sent"});
+		
+	} catch (error) {
+		throw error;
+	}
+};
+
+
 
 
 
@@ -188,5 +230,7 @@ export default {
 	companyInfo,
 	getCompanyInfo,
 	resendEmail,
-    checkTaxReport
+    checkTaxReport, 
+	AdminLogin,
+	ForgetPassword
 };
