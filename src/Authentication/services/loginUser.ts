@@ -37,25 +37,27 @@ export const loginAdmin = async (
 	password: string
 ): Promise<any> => {
 	try{
-		console.log(email)
+		console.log(1)
 	const user = await User.findOne({email});
 	if (!user) {
 	  return  {status:404, message:'Your login details is incorrect'};
 	} 
- 
+	console.log(password, user.password)
+
 	const checkPassword = await bcryptjs.compare(password, user.password);
+	console.log(2)
 	if (!checkPassword) {
 		return {status:404, message:'password entered is incorrect'};
 	}
-
+	console.log(3)
 	const token:any = await generateToken(user);
 	if (!token) {
 		return {status:403, message:'Token error'};
 	}
+	console.log(4)
+	return {status:200, message:'success',token} 
 
-	return {status:200, message:'success',token}
-
-   }catch (error){
+   }catch (error){ 
 	throw error;
    }
 };

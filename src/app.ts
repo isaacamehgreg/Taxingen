@@ -131,8 +131,8 @@ class App implements IApp {
 			.then(async () => {
 				 console.log('🚀 Database connected');
 				 const hash = await hashPassword("12345");
-			//	 console.log((await User.find({id: "de61971e-0e0d-4f1e-adee-795c7e537aee"})).length)
-			 //    await User.update({id: "de61971e-0e0d-4f1e-adee-795c7e537aee"},{password: hash, role: "admin", email: "isaacamehgreg@gmail.com"}).then(async () => {console.log('Updated')})               
+				// console.log((await User.find({id: "de61971e-0e0d-4f1e-adee-795c7e537aee"})).length)
+			    // await User.update({id: "de61971e-0e0d-4f1e-adee-795c7e537aee"},{password: hash, role: "admin", email: "isaacamehgreg@gmail.com"}).then(async () => {console.log('Updated')})               
 			}) 
 			.catch((err) => {
 				console.log(err);
